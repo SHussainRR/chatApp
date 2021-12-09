@@ -16,7 +16,16 @@ export const snapshotToArray = (snapshot: any) => {
 
   return returnArr;
 };
+type User = string;
 
+interface Room {
+  members: User[];
+  name: string;
+}
+interface SelectUser {
+  itemName:User;
+  id: string;
+}
 @Component({
   selector: 'app-roomlist',
   templateUrl: './roomlist.component.html',
@@ -30,18 +39,28 @@ export class RoomlistComponent implements OnInit {
   OnetoOne = [];
   onlineUsers = [];
   offlineUsers = [];
-  allUsers = [];
-  allAvaibUsers = [];
+  allUsers:SelectUser[] = [];
+  allAvaibUsers:SelectUser[] = [];
   displayStyle = "none";
   isLoadingResults = true;
   chatwith = '';
   groupref = firebase.database().ref('group/');
-  var2 = 2;
 
+  selectedItems: SelectUser[] = [];
+  groupName: string = "";
+  groupList: Room[] = [];
+
+  oneToOneRoom: Room = {
+    members: [],
+    name: "",
+  };
+  conferenceRoom: Room = {
+    members: [],
+    name: "",
+  };
 
   // ng dropdown
   dropdownList = [];
-  selectedItems = [];
   dropdownSettings = {};
   // ng dropdown
 
@@ -53,20 +72,6 @@ export class RoomlistComponent implements OnInit {
       this.rooms = snapshotToArray(resp);
       this.isLoadingResults = false;
     });
-
-
-
-
-    firebase.database().ref('OnetoOne/').on('value', resp => {
-      this.OnetoOne = [];
-      this.OnetoOne = snapshotToArray(resp);
-      // console.log("Logg ===> ", this.OnetoOne);
-      this.OnetoOne = this.OnetoOne.filter(item => item.UserOne === this.nickname || item.UserTwo === this.nickname);
-      console.log("Logg ===> ", this.OnetoOne);
-      this.isLoadingResults = false;
-    });
-
-
 
     // firebase.database().ref('OnetoOne/UserOne/' ||'OnetoOne/UserTwo/' ).on('value', resp => {
 
@@ -80,21 +85,32 @@ export class RoomlistComponent implements OnInit {
 
 
 
+    firebase.database().ref('OnetoOne/').on('value', resp => {
+      this.OnetoOne = [];
+      this.OnetoOne = snapshotToArray(resp);
+      // console.log("Logg ===> ", this.OnetoOne);
+      this.OnetoOne = this.OnetoOne.filter(item => item.UserOne === this.nickname || item.UserTwo === this.nickname);
+      console.log("Logg ===> ", this.OnetoOne);
+      this.isLoadingResults = false;
+    });
 
     firebase.database().ref('roomusers/').orderByChild('roomname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
       this.onlineUsers = roomusers.filter(x => x.status === 'online');
       this.offlineUsers = roomusers.filter(x => x.status === 'offline');
       this.allUsers = roomusers;
-
     });
 
-
-
-
-
+    this.fetchGroupList();
 
   }
+
+  fetchGroupList() {
+    firebase.database().ref('group/').on('value', (resp2: any) => {
+      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el=>el);
+    });
+  }
+
 
   // ngOnInit(): void {}
 
@@ -103,14 +119,14 @@ export class RoomlistComponent implements OnInit {
     firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
 
-      const newVar = roomusers.map(ru => {
+      const newVar:SelectUser[] = roomusers.map(ru => {
         return { "id": ru.key, "itemName": ru.nickname };
       });
       console.log(newVar);
 
       // this.allAvaibUsers = roomusers;
       this.allAvaibUsers = newVar;
-      this.dropdownList = this.allAvaibUsers;
+      this.dropdownList = newVar;
     });
 
     
@@ -147,55 +163,20 @@ export class RoomlistComponent implements OnInit {
 
 
   createGroupRoom(){
-
-    console.log(this.selectedItems);
-
-    this.selectedItems.push('HEHEHE');
+    const group = {
+      members: this.selectedItems.map(el=>el.itemName),
+      name: this.groupName
+    }
+    console.log(group);
     
-
-    
-    this.groupref.orderByChild('groupref').once('value', (snapshot: any) => {
       
-        const newRoom = firebase.database().ref('group/').push();
-        
-        // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-        newRoom.set(this.selectedItems);
-        
-      
-      
-    });
+    const newRoom = firebase.database().ref('group/').push();
+    // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
+    newRoom.set(group).then((response)=>{
+      this.selectedItems = [];
+      this.groupName = ""
+    });  
 
-
-    
-    
-  }
-
-  onItemSelect(item: any) {
-    // console.log(item);
-    console.log(this.selectedItems);
-  }
-  OnItemDeSelect(item: any) {
-    console.log(item);
-    console.log(this.selectedItems);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
-  }
-  onDeSelectAll(items: any) {
-    console.log(items);
-  }
-
-
-
-  RemoveDuplicates(data) {
-    let unique = [];
-
-    data.forEach(element => {
-      if (!unique.includes(element)) {
-        unique.push(element)
-      }
-    });
-    return unique;
   }
 
   enterChatRoom(roomname: string) {
@@ -238,7 +219,33 @@ export class RoomlistComponent implements OnInit {
   }
 
 
+  enterGroupRoom(row) {
+    const sendInitialMessage = (bool=false) => {
 
+      const groupchat = { roomname: '', nickname: '', message: '', date: '', type: '' };
+      groupchat.nickname = this.nickname;
+      groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
+      groupchat.message = `${this.nickname} enter the room`;
+      groupchat.type = 'join';
+
+      if(bool) {
+        const newMessage = firebase.database().ref('groupmessages/').push({messages : [groupchat]});
+        const groupref = firebase.database().ref('group/' + row.key);
+        groupref.update({chatKey: newMessage.key}).then(response=>{
+          // this.router.navigate(['/grouproom',row.chatKey]);
+        });
+      } else{
+        firebase.database().ref('groupmessages/' + row.chatKey).child("messages").push(groupchat)
+      }
+    }
+    if(row.chatKey) {
+      sendInitialMessage();
+      this.router.navigate(['/grouproom',row.chatKey]);
+    }else {
+      sendInitialMessage(true);
+
+    }
+  }
 
 
   enterOnetoOneChatRoom(roomname: string) {

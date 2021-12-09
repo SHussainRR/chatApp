@@ -71,12 +71,10 @@
       <button type="button" >ADD</button> -->
 
 
-
+      <input type="text" [(ngModel)]="groupName"/>
 
       <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" 
-    [settings]="dropdownSettings" 
-    (onSelect)="onItemSelect($event)" 
-    (onDeSelect)="OnItemDeSelect($event)"
+    [settings]="dropdownSettings"
     ></angular2-multiselect>
 
 
@@ -178,7 +176,29 @@
       </table>
     </div>
   </div>
+  
+  <div class="col-9" style="min-width: 63%; margin-top: 16px;">
+    <div class="roomDetails" style="float: left; min-width: 93%;" >
+      <table mat-table [dataSource]="groupList" class="example-table"
+             matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
+             
+        <!-- Room Name Column -->
+        <ng-container matColumnDef="roomname">
 
+          
+          <th mat-header-cell *matHeaderCellDef class="roomName"> Your Group List</th>
+          <td mat-cell class="roomName"  *matCellDef="let row">{{row.name || row.members.join(', ')}}</td>
+          <!-- {{row.roomname}} -->
+          <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
+          
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterGroupRoom(row)"></tr>
+      </table>
+    </div>
+  </div>
+  
   
 
 </div>
