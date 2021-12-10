@@ -44,8 +44,9 @@ export class RoomlistComponent implements OnInit {
   displayStyle = "none";
   isLoadingResults = true;
   chatwith = '';
-  groupref = firebase.database().ref('group/');
 
+
+  groupref = firebase.database().ref('group/');
   selectedItems: SelectUser[] = [];
   groupName: string = "";
   groupList: Room[] = [];
@@ -193,6 +194,7 @@ export class RoomlistComponent implements OnInit {
       let roomuser = [];
       roomuser = snapshotToArray(resp);
       const user = roomuser.find(x => x.nickname === this.nickname);
+      
       if (user !== undefined) {
         const userRef = firebase.database().ref('roomusers/' + user.key);
         userRef.update({ status: 'online' });

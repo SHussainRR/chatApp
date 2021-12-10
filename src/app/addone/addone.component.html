@@ -2,19 +2,12 @@
 
   <div class="createNewRoomForm">
 <h2 style="text-align: center;"> Hello {{nickname}} !!</h2>
-
-
   <div>
     <h2>Chat with</h2>
     <input type="text" class="inputField" placeholder="Enter NickName of user" [(ngModel)]='UserTwo' />
   </div>
 
-
- 
-
-  <form  [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">
-    
-    
+  <form  [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">    
       <div class="button-row">
           <!-- <input type=button onClick=" location.href='/roomlist'" value='Back'> -->
           <button type="button" class="innerPadd" onClick="location.href='/roomlist'"mat-fab color="primary"><mat-icon>arrow_back</mat-icon></button>

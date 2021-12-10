@@ -7,7 +7,7 @@
 
 .example-container {
   background-image: url('./roomWallpaper.jfif');
-  height: 900px;
+  min-height: 1200px;
   padding: 16px;
 }
 .NameClass{

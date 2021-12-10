@@ -4,21 +4,15 @@
     <h3>
       User Nickname :&nbsp;{{nickname}}
     </h3>
-      <button mat-button class="matt-button" (click)="logout()" >Signout</button>
+      <button mat-button class="matt-button" (click)="logout()" >
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
   </div>
  
   <h2 class="heading">Room List</h2>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner  *ngIf="isLoadingResults"></mat-spinner>
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
-
-
-  <!-- <div class="button-row">
-    <span class="NameClass">Add New Group Room :
-      <button mat-flat-button color="primary" class="add-button" [routerLink]="['/addroom']"><mat-icon>add</mat-icon></button>  
-    </span>
-    
-  </div> -->
 
   <div class="button-row">
     <span class="NameClass">Add one to one Room :
@@ -26,11 +20,11 @@
     </span>
   </div>
 
-
-
   <div class="button-row">
     <span class="NameClass">Add Group :
       <button mat-flat-button color="primary" class="add-button" (click)="openPopup()"><mat-icon>add</mat-icon></button>  
+
+      <button mat-flat-button color="primary" class="add-button" [routerLink]="['/addgroup']">Navigation</button>  
     </span>
   </div>
 
@@ -38,7 +32,6 @@
   tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-
 
       <div class="modal-header row" style=" display: flex; justify-content: space-between;">
         <h4  style="margin-left: 50px; ">Group Chat</h4>
@@ -60,43 +53,22 @@
         </tr> -->
 
 
-
-      
-        <!-- <select multiple>
-          <option *ngFor="let user of allUsers" id="selectedNicknames" name="selectedNicknames" [value]="user.nickname">
-            {{user.nickname}}
-          </option>    
-      </select>
-
-      <button type="button" >ADD</button> -->
-
-
       <input type="text" [(ngModel)]="groupName"/>
 
       <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" 
     [settings]="dropdownSettings"
     ></angular2-multiselect>
 
-
     <!-- 
     (onSelectAll)="onSelectAll($event)"
     (onDeSelectAll)="onDeSelectAll($event)" -->
-
-
-
-    
-  
-       
       </div>
+
       <div class="modal-footer" style="justify-content: right;">
         <button type="button" (click)= "createGroupRoom()" >Create Room </button>
-
-        
-        <button type="button" class="btn btn-danger" 
-                (click)="closePopup()">
-          Close
-        </button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
       </div>
+
     </div>
   </div>
 </div>
@@ -111,6 +83,18 @@
       </div>
 
       <table style="width:100%" >
+
+        <!-- all Users -->
+        <!-- <tr *ngIf="allUsers.length > 0">
+          <th>All Users</th>
+        </tr>
+        <tr *ngFor="let user of allUsers">
+          <td>
+             
+          <span>{{user.nickname}}</span>
+          </td>
+        </tr> -->
+
         <!-- Online Users -->
         <tr *ngIf="onlineUsers.length > 0">
           <th>Online Users</th>
@@ -121,6 +105,7 @@
           <span>{{user.nickname}}</span>
           </td>
         </tr>
+        
         <!-- Offline Users  -->
         <tr>
           <th *ngIf= "offlineUsers.length >0">Offline Users</th>

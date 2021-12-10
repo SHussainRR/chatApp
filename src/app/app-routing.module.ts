@@ -6,6 +6,7 @@ import { RoomlistComponent } from './roomlist/roomlist.component';
 import { AddroomComponent } from './addroom/addroom.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { AddoneComponent } from './addone/addone.component';
+import { AddgroupComponent } from './addgroup/addgroup.component';
 
 
 const routes: Routes = [
@@ -13,8 +14,10 @@ const routes: Routes = [
   { path: 'roomlist', component: RoomlistComponent },
   { path: 'addroom', component: AddroomComponent },
   { path: 'addone', component: AddoneComponent},
+  { path: 'addgroup', component: AddgroupComponent},
   { path: 'chatroomone/:roomname' , component: OneChatroomComponent},
   { path: 'chatroom/:roomname', component: ChatroomComponent },
+
 
   { path: '',
     redirectTo: '/login',
