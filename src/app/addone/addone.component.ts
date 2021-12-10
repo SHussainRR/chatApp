@@ -50,7 +50,7 @@ roomForm: FormGroup;
 
     this.ref.orderByChild('roomname').equalTo( (this.UserTwo+" "+this.nickname) || (this.nickname+" "+this.UserTwo) ).once('value', (snapshot: any) => {
       if (snapshot.exists()) {
-        this.snackBar.open('Room name already exist!');
+        this.snackBar.open('Your Room with this User already exists !! ');
       } else {
         const newRoom = firebase.database().ref('OnetoOne/').push();
         room.UserTwo = this.UserTwo;

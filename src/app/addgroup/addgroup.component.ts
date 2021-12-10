@@ -11,6 +11,11 @@ interface SelectUser {
   itemName:User;
   id: string;
 }
+interface Room {
+  members: User[];
+  name: string;
+}
+
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
 
@@ -32,6 +37,7 @@ export class AddgroupComponent implements OnInit {
   roomForm: FormGroup;
   nickname = '';
   groupName = '';
+  groupList: Room[] = [];
 
    // ng dropdown
    dropdownList = [];
@@ -67,6 +73,7 @@ export class AddgroupComponent implements OnInit {
       // this.allAvaibUsers = newVar;
       this.dropdownList = newVar;
     });
+    this.fetchGroupList();
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -76,6 +83,31 @@ export class AddgroupComponent implements OnInit {
       enableSearchFilter: true,
       classes: "myclass custom-class"
     };
+
+  }
+
+
+  fetchGroupList() {
+    firebase.database().ref('group/').on('value', (resp2: any) => {
+      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el=>el);
+    });
+  }
+
+  createGroupRoom(){
+    const group = {
+      members: this.selectedItems.map(el=>el.itemName),
+      name: this.groupName
+    }
+    console.log(group);
+    
+      
+    const newRoom = firebase.database().ref('group/').push();
+    // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
+    newRoom.set(group).then((response)=>{
+      this.selectedItems = [];
+      this.groupName = "";
+      this.router.navigate(['/roomlist']);
+    });  
 
   }
 

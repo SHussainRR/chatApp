@@ -28,11 +28,6 @@ import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { AddgroupComponent } from './addgroup/addgroup.component';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
