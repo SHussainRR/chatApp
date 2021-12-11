@@ -27,6 +27,7 @@ import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
 
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { AddgroupComponent } from './addgroup/addgroup.component';
+import { GrouproomComponent } from './grouproom/grouproom.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AddgroupComponent } from './addgroup/addgroup.component';
     AddoneComponent,
     OneChatroomComponent,
     AddgroupComponent,
+    GrouproomComponent,
     
   ],
   imports: [

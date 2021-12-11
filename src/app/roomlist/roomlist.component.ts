@@ -207,15 +207,20 @@ export class RoomlistComponent implements OnInit {
       groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
       groupchat.message = `${this.nickname} enter the room`;
       groupchat.type = 'join';
-
+      const navigateRoom = (key) => {
+        this.router.navigate(['/grouproom',key]);
+      }
       if(bool) {
-        const newMessage = firebase.database().ref('groupmessages/').push({messages : [groupchat]});
+        const newMessage = firebase.database().ref('groupmessages/').push({messages : []})
         const groupref = firebase.database().ref('group/' + row.key);
-        groupref.update({chatKey: newMessage.key}).then(response=>{
-          // this.router.navigate(['/grouproom',row.chatKey]);
+        groupref.update({chatKey: newMessage.key});
+        newMessage.then(function (response){
+         response.child("messages").push(groupchat)
+          navigateRoom(newMessage.key);
         });
       } else{
         firebase.database().ref('groupmessages/' + row.chatKey).child("messages").push(groupchat)
+        navigateRoom(row.chatKey);
       }
     }
     if(row.chatKey) {
