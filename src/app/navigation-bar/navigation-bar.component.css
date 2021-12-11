@@ -1,101 +1,123 @@
-* {
-	box-sizing: border-box;
-}
-body {
-	font-family: 'Montserrat', sans-serif;
-	line-height: 1.6;
-	margin: 0;
-	min-height: 100vh;
-}
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-
-h2,
-h3,
-a {
-	color: #34495e;
-}
-
-a {
-	text-decoration: none;
-}
-
-
-
 .logo {
-	margin: 0;
-	font-size: 1.45em;
+	width: 120px;
+	height: 31px;
+	background: url('https://logiciel-services.com/wp-content/themes/logiciel/assets/images/logo.png');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+	margin: 16px 24px 16px 0;
+	float: left;
 }
 
-.main-nav {
-	margin-top: 5px;
-
+[nz-menu] {
+	line-height: 64px;
 }
-.logo a,
-.main-nav a {
-	padding: 10px 15px;
-	text-transform: uppercase;
+
+nz-breadcrumb {
+	margin: 16px 0;
+}
+
+nz-content {
+	padding: 0 50px;
+}
+
+nz-footer {
 	text-align: center;
-	display: block;
 }
 
-.main-nav a {
-	color: whitesmoke;
-	font-size: .99em;
+.inner-content {
+	background: #fff;
+	padding: 24px;
+	min-height: 280px;
 }
 
-.main-nav a:hover {
-	color: #718daa;
-}
-
-
-
-.header {
-	padding-top: .5em;
-	padding-bottom: .5em;
-	border: 1px solid #a2a2a2;
-	background-color: #f4f4f4;
-    background-color: rgb(98,23,168);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-    width: 100%;
-    min-width: 100%;
-}
-
-
-/* ================================= 
-  Media Queries
-==================================== */
-
-
-
-
-@media (min-width: 769px) {
-	.header,
-	.main-nav {
-		display: flex;
-	}
-	.header {
-		flex-direction: column;
-		align-items: center;
-    	
-		width: 80%;
-		margin: 0 auto;
-		max-width: 1150px;
-	
-	}
-
-}
-
-@media (min-width: 1025px) {
-	.header {
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-}
+:host {
+	display: flex;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+  
+  .app-layout {
+	height: 100vh;
+  }
+  
+  .header-trigger {
+	height: 64px;
+	padding: 20px 24px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: all .3s,padding 0s;
+  }
+  
+  .trigger:hover {
+	color: #1890ff;
+  }
+  
+  .sidebar-logo {
+	position: relative;
+	height: 64px;
+	padding-left: 24px;
+	overflow: hidden;
+	line-height: 64px;
+	background: #001529;
+	transition: all .3s;
+  }
+  
+  .sidebar-logo img {
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	vertical-align: middle;
+  }
+  
+  .sidebar-logo h1 {
+	display: inline-block;
+	margin: 0 0 0 20px;
+	color: #fff;
+	font-weight: 600;
+	font-size: 14px;
+	font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+	vertical-align: middle;
+  }
+  
+  nz-header {
+	padding: 0;
+	width: 100%;
+	z-index: 2;
+  }
+  
+  .app-header {
+	position: relative;
+	height: 64px;
+	padding: 0;
+	background: #fff;
+	box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  }
+  
+  .inner-content {
+	padding: 24px;
+	background: #fff;
+	height: 100%;
+  }
+  
+  .header-menu {
+	line-height: 64px;
+  }
+  
+  .sider-menu {
+	height: 100%;
+	border-right: 0;
+  }
+  
+  .inner-layout {
+	padding: 0 24px 24px;
+  }
+  
+  
+  nz-content {
+	background: #fff;
+	padding: 24px;
+	min-height: 280px;
+  }

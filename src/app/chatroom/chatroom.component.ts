@@ -4,6 +4,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
+import { makeUserOnline } from 'src/utils/functions';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -95,8 +96,7 @@ export class ChatroomComponent implements OnInit {
       roomuser = snapshotToArray(resp);
       const user = roomuser.find(x => x.nickname === this.nickname);
       if (user !== undefined) {
-        const userRef = firebase.database().ref('roomusers/' + user.key);
-        userRef.update({status: 'offline'});
+        makeUserOnline(false);
       }
     });
 

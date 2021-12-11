@@ -19,7 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { AddoneComponent } from './addone/addone.component';
 import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
@@ -28,6 +28,17 @@ import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { AddgroupComponent } from './addgroup/addgroup.component';
 import { GrouproomComponent } from './grouproom/grouproom.component';
+import { IconsProviderModule } from './icons-provider.module';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { HttpClientModule } from '@angular/common/http';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import en from '@angular/common/locales/en';
+import { NzButtonModule, NzInputModule } from 'ng-zorro-antd';
+import { NzFormModule } from 'ng-zorro-antd/form';
+
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -44,7 +55,9 @@ import { GrouproomComponent } from './grouproom/grouproom.component';
     
   ],
   imports: [
-    
+    NzInputModule,
+    NzButtonModule,
+    NzFormModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -60,8 +73,12 @@ import { GrouproomComponent } from './grouproom/grouproom.component';
     MatSnackBarModule,
     MatSidenavModule,
     AngularMultiSelectModule,
+    IconsProviderModule,
+    NzLayoutModule,
+    NzMenuModule,
+    HttpClientModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

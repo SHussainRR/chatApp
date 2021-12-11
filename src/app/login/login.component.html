@@ -1,91 +1,47 @@
-<app-navigation-bar></app-navigation-bar>
+<div nz-row type="flex" style="justify-content: center; ">
+  <div nz-col>
+    <div style="display: 'inline-flex'; justify-content: 'center'; align-items: 'center'">
 
-  <div class="container">
-
-    <!-- <button (click)="PageStatus=true">
-      Login
-    </button>
-
-    
-    <button (click)="PageStatus=false">
-      Signup
-    </button> -->
-
-    <form *ngIf="PageStatus==true"
-    class="login-form" [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
-      <div class="login-text">
-        <h2>LOGIN</h2>
-        <div style="font-size:16px">Use Your Nickname</div>
-      </div>  
-      
-        <div class="flex-input">          
-          <label class="mb16">Nickname:</label>
-          <input type="text" matInput placeholder="Enter your nickname" formControlName="nickname"
-                  [errorStateMatcher]="matcher">
-        </div>  
-          <mat-error>
-            <span *ngIf="!loginForm.get('nickname').valid && loginForm.get('nickname').touched">Please enter your nickname</span>
-            <span *ngIf="doesNotExist">NickName Does not Exist, please SignUp</span>
-          </mat-error>
-
-
-
-
-          <!-- <input type="text" placeholder="password"> -->
-
-
-        
-        <input [disabled]="!loginForm.valid" type="submit"  value="LOGIN" >
-        <div class="flex-container">
-          <!-- <div>
-            <input type="checkbox" name="" id="">
-          <span>Remeber me</span>
-          </div> -->
-          <div style="text-align: right;">
-            <span>Does not have a account ? Please<span class="pageStaus" (click)="PageStatus=false;doesNotExist= false"> Signup</span></span>
-            
-          </div>
-        </div>
-    </form>
-
-
-
-
-
-    <form *ngIf="PageStatus==false"
-    class="login-form" [formGroup]="loginForm" (ngSubmit)="onSignUpFormSubmit(loginForm.value)">
-      <div class="login-text">
-        <h2>SignUp</h2>
-        <div style="font-size:16px">Use Your Nickname</div>
-      </div>  
-      
-        <div class="flex-input">          
-          <label class="mb8">Nickname:</label>
-          <input type="text" matInput placeholder="Enter your nickname" formControlName="nickname"
-                  [errorStateMatcher]="matcher">
-        </div>  
-          <mat-error>
-            <span *ngIf="(!loginForm.get('nickname').valid && loginForm.get('nickname').touched ) && !alreadyExist">Please enter your nickname</span>
-
-            <span *ngIf="alreadyExist">NickName already Exist , Please Login</span>
-
-          </mat-error>
-        
-        <input [disabled]="!loginForm.valid" type="submit"  value="SignUp" >
-
-
-
-
-        <div class="flex-container">
-          <!-- <div>
-            <input type="checkbox" name="" id="">
-          <span>Remeber me</span>
-          </div> -->
-          <div style="text-align: right;">
-              <span>If you already have a Account ? Please<span class="pageStaus" (click)="PageStatus=true;alreadyExist= false"> Login</span></span>
-          </div>
-        </div>
-    </form>
+      <form *ngIf="PageStatus==true" nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="onFormSubmit(loginForm.value)">
+        <nz-form-item>
+          <h3>Signin</h3>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control 
+           nzErrorTip="{{
+             loginForm.controls['nickname'].errors?.required || !loginForm.controls['nickname'].errors?.usernameExists ? 
+             (!loginForm.controls['nickname'].errors?.usernameExists ? 'Username not found!' : 'Please input your username!') : ''}}">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="nickname" placeholder="Username" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+        Or
+        <a (click)="PageStatus=false;">register now!</a>
+      </form>
+  
+  
+      <form *ngIf="PageStatus==false" nz-form [formGroup]="signupForm" class="login-form" (ngSubmit)="onSignUpFormSubmit(signupForm.value)">
+        <nz-form-item>
+          <h3>Signup</h3>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control 
+          nzErrorTip="{{
+            signupForm.controls['nickname'].errors?.required || signupForm.controls['nickname'].errors?.usernameExists ? 
+            (signupForm.controls['nickname'].errors?.usernameExists ? 'Username already Taken!' : 'Please input your username!') : ''}}">
+           <nz-input-group nzPrefixIcon="user">
+             <input type="text" nz-input formControlName="nickname" placeholder="Username" />
+           </nz-input-group>
+         </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Signup</button>
+        Or
+        <a (click)="PageStatus=true;">Login now!</a>
+      </form>
+  
+    </div>
+  </div>
+  
 </div>
-
-

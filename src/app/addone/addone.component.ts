@@ -44,23 +44,35 @@ roomForm: FormGroup;
   gooBack(): void {
     this.router.navigate(['/roomlist']);
   }
-
-  onFormSubmit(form: any) {
+  async findData(name): Promise<boolean> {
+    return new Promise((res)=>{
+      this.ref.orderByChild('roomname').equalTo(name).once('value', (snapshot: any) => {
+        if (snapshot.exists()) {
+          res(true);
+        } else {
+          res(false)
+        }
+      });
+    })
+  }
+  async onFormSubmit(form: any) {
     const room = form;
+    const roomExists: Boolean[] = await Promise.all([
+      this.findData((this.UserTwo+" "+this.nickname)),
+      this.findData((this.nickname+" "+this.UserTwo))
+    ])
+    if(roomExists.some(item=>item)){
+      this.snackBar.open('Your Room with this User already exists !! ');
+    }else{
 
-    this.ref.orderByChild('roomname').equalTo( (this.UserTwo+" "+this.nickname) || (this.nickname+" "+this.UserTwo) ).once('value', (snapshot: any) => {
-      if (snapshot.exists()) {
-        this.snackBar.open('Your Room with this User already exists !! ');
-      } else {
-        const newRoom = firebase.database().ref('OnetoOne/').push();
-        room.UserTwo = this.UserTwo;
-        room.UserOne = this.nickname;
-        room.roomname=this.nickname+" "+this.UserTwo;
-        // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-        newRoom.set(room);
-        this.router.navigate(['/roomlist']);
-      }
-    });
+      const newRoom = firebase.database().ref('OnetoOne/').push();
+      room.UserTwo = this.UserTwo;
+      room.UserOne = this.nickname;
+      room.roomname=this.nickname+" "+this.UserTwo;
+      // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
+      newRoom.set(room);
+      this.router.navigate(['/roomlist']);
+    }
   }
 
 

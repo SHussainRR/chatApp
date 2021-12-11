@@ -66,7 +66,7 @@ export class AddgroupComponent implements OnInit {
     firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
 
-      const newVar:SelectUser[] = roomusers.map(ru => {
+      const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
         return { "id": ru.key, "itemName": ru.nickname };
       });
       console.log(newVar);
@@ -99,7 +99,7 @@ export class AddgroupComponent implements OnInit {
       name: this.groupName
     }
     console.log(group);
-    
+    group.members.push(this.nickname);
       
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);

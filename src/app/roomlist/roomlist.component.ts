@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
+import { makeUserOnline } from 'src/utils/functions';
 
 
 
@@ -95,10 +96,10 @@ export class RoomlistComponent implements OnInit {
       this.isLoadingResults = false;
     });
 
-    firebase.database().ref('roomusers/').orderByChild('roomname').on('value', (resp2: any) => {
+    firebase.database().ref('users/').orderByChild('status').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
       this.onlineUsers = roomusers.filter(x => x.status === 'online');
-      this.offlineUsers = roomusers.filter(x => x.status === 'offline');
+      this.offlineUsers = roomusers.filter(x => x.status !== 'online');
       this.allUsers = roomusers;
     });
 
@@ -120,7 +121,7 @@ export class RoomlistComponent implements OnInit {
     firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
 
-      const newVar:SelectUser[] = roomusers.map(ru => {
+      const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
         return { "id": ru.key, "itemName": ru.nickname };
       });
       console.log(newVar);
@@ -143,12 +144,10 @@ export class RoomlistComponent implements OnInit {
 
   createGroupRoom(){
     const group = {
-      members: this.selectedItems.map(el=>el.itemName),
+      members: [this.nickname, ...this.selectedItems.map(el=>el.itemName)],
       name: this.groupName
     }
-    console.log(group);
     
-      
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
     newRoom.set(group).then((response)=>{
@@ -173,17 +172,14 @@ export class RoomlistComponent implements OnInit {
       roomuser = snapshotToArray(resp);
       const user = roomuser.find(x => x.nickname === this.nickname);
       
-      if (user !== undefined) {
-        const userRef = firebase.database().ref('roomusers/' + user.key);
-        userRef.update({ status: 'online' });
-      } else {
+      if (!user)  {
         const newroomuser = { roomname: '', nickname: '', status: '' };
         newroomuser.roomname = roomname;
         newroomuser.nickname = this.nickname;
-        newroomuser.status = 'online';
         const newRoomUser = firebase.database().ref('roomusers/').push();
         newRoomUser.set(newroomuser);
       }
+      makeUserOnline(true);
     });
 
     this.router.navigate(['/chatroom', roomname]);
