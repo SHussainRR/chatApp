@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
     if (this.signupForm.valid) {      
       this.data.emitLoginStatus(true);
       const newUser = firebase.database().ref('users/').push();
-      newUser.set({nickname: this.nickname});
+      newUser.set({nickname: login.nickname});
       console.log({login})
       localStorage.setItem('nickname', login.nickname);
       localStorage.setItem('userId', newUser.key);
