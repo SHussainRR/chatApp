@@ -14,9 +14,7 @@ const routes: Routes = [
   { path: 'addone', component: AddoneComponent},
   { path: 'chatroomone/:roomname' , component: OneChatroomComponent},
   { path: 'chatroom/:roomname', component: ChatroomComponent },
-
   { path: 'grouproom/:roomname', component: GrouproomComponent },
-
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'
