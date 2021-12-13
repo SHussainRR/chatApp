@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as firebase from 'firebase';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/services/data.service';
+import { ClientService } from 'src/utils/client';
 import { isLoggedIn } from 'src/utils/functions';
 
 const config = {
@@ -22,7 +23,8 @@ export class AppComponent {
   subscription: Subscription;
 
   constructor(private data: DataService) {
-    firebase.initializeApp(config);
+    // firebase.initializeApp(config);
+    ClientService.initApp();
     this.isLoggedIn = isLoggedIn();
   }
   ngOnInit() {

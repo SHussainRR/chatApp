@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 
-export const isLoggedIn = () => localStorage.getItem('nickname') && true;
+export const isLoggedIn = () => getUserId() && true;
 
 export const makeUserOnline = (online) => {
     const userRef = firebase.database().ref('users/' + localStorage.getItem('userId'));
@@ -18,3 +18,8 @@ export const snapshotToArray = (snapshot: any) => {
   
     return returnArr;
   };
+
+  export const getUserId = () => {
+    return localStorage.getItem('nickname')
+  }
+  

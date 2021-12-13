@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
 import { makeUserOnline } from 'src/utils/functions';
+import { GroupService } from 'src/services/group/group.service';
+import { UserService } from 'src/services/user/user.service';
 
 
 
@@ -96,20 +98,41 @@ export class RoomlistComponent implements OnInit {
       this.isLoadingResults = false;
     });
 
-    firebase.database().ref('users/').orderByChild('status').on('value', (resp2: any) => {
-      const roomusers = snapshotToArray(resp2);
-      this.onlineUsers = roomusers.filter(x => x.status === 'online');
-      this.offlineUsers = roomusers.filter(x => x.status !== 'online');
-      this.allUsers = roomusers;
-    });
+    // firebase.database().ref('users/').orderByChild('status').on('value', (resp2: any) => {
+    //   const roomusers = snapshotToArray(resp2);
+    //   this.onlineUsers = roomusers.filter(x => x.status === 'online');
+    //   this.offlineUsers = roomusers.filter(x => x.status !== 'online');
+    //   this.allUsers = roomusers;
+    // });
+
+    this.fetchUsersList();
+
+
+
 
     this.fetchGroupList();
 
   }
 
+
+
+  fetchUsersList(){
+    UserService.getUsersList((onUsers,offUsers,alUsers)=>{
+      this.onlineUsers = onUsers;
+      this.offlineUsers = offUsers;
+      this.allUsers = alUsers;
+    });
+
+
+
+  }
+
   fetchGroupList() {
-    firebase.database().ref('group/').on('value', (resp2: any) => {
-      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el);
+    // firebase.database().ref('group/').on('value', (resp2: any) => {
+    //    snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el);
+    // });
+    GroupService.getGroupList((data)=>{
+      this.groupList = data;
     });
   }
 
