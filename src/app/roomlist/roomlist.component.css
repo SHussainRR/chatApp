@@ -29,6 +29,9 @@
   background-color: rgb(255, 255, 255);
 
 }
+mat-icon{
+  color: black;
+}
 
 .heading{
   color: whitesmoke;

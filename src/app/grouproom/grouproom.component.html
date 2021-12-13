@@ -5,7 +5,7 @@
       
       <mat-drawer mode="side" opened class="left-drawer">
         
-        <!-- Side Bar -->
+      
         <div class="users-pane">       
   
             <button class="backButton" (click)="exitChat()">
@@ -46,21 +46,23 @@
           </div>
         </div>
   
-        <footer class="sticky-footer">
+        
+          <footer class="sticky-footer" style="position: absolute; float: right; width: 80%;">
   
-          <form class="message-form" [formGroup]="chatForm" (ngSubmit)="onFormSubmit(chatForm.value);scrollToBottom()">
-            <mat-form-field class="message-form-field">
-              <input matInput placeholder="Enter message here" formControlName="message"
-                      [errorStateMatcher]="matcher">
-              <mat-error>
-                <span *ngIf="!chatForm.get('message').valid && chatForm.get('message').touched">Enter your message</span>
-              </mat-error>
-              <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
-                <mat-icon>send</mat-icon>
-              </button>
-            </mat-form-field>
-          </form>
-        </footer>
+            <form class="message-form" [formGroup]="chatForm" (ngSubmit)="onFormSubmit(chatForm.value);scrollToBottom()">
+              <mat-form-field class="message-form-field">
+                <input matInput placeholder="Enter message here" formControlName="message"
+                        [errorStateMatcher]="matcher">
+                <mat-error>
+                  <span *ngIf="!chatForm.get('message').valid && chatForm.get('message').touched">Enter your message</span>
+                </mat-error>
+                <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
+                  <mat-icon>send</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </footer>
+        
         
       </mat-drawer-content>
   

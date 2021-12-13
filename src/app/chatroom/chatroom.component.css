@@ -3,6 +3,7 @@
   background-image: url('..\roomlist\roomWallpaper.jfif');
   padding: 10px;
   min-height: 900px;
+  
 }
 
 .drawer-container {
@@ -47,9 +48,9 @@ footer.sticky-footer {
   border-top: solid 1px #efefef;
 }
 
-.message-form {
+/* .message-form {
   margin-left: 200px;
-}
+} */
 
 .message-form-field {
   width: 94%;

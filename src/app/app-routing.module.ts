@@ -1,3 +1,4 @@
+import { GrouproomComponent } from './grouproom/grouproom.component';
 import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'addone', component: AddoneComponent},
   { path: 'chatroomone/:roomname' , component: OneChatroomComponent},
   { path: 'chatroom/:roomname', component: ChatroomComponent },
+
+  { path: 'grouproom/:roomname', component: GrouproomComponent },
 
   { path: '',
     redirectTo: '/login',

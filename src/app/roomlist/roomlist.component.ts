@@ -197,7 +197,6 @@ export class RoomlistComponent implements OnInit {
 
   enterGroupRoom(row) {
     const sendInitialMessage = (bool=false) => {
-
       const groupchat = { roomname: '', nickname: '', message: '', date: '', type: '' };
       groupchat.nickname = this.nickname;
       groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
@@ -206,16 +205,19 @@ export class RoomlistComponent implements OnInit {
       const navigateRoom = (key) => {
         this.router.navigate(['/grouproom',key]);
       }
+
       if(bool) {
         const newMessage = firebase.database().ref('groupmessages/').push({messages : []})
         const groupref = firebase.database().ref('group/' + row.key);
         groupref.update({chatKey: newMessage.key});
         newMessage.then(function (response){
          response.child("messages").push(groupchat)
+        //  console.log("newMsg.key",newMessage.key )
           navigateRoom(newMessage.key);
         });
       } else{
         firebase.database().ref('groupmessages/' + row.chatKey).child("messages").push(groupchat)
+        // console.log("Row.chatkey" , row.chatKey)
         navigateRoom(row.chatKey);
       }
     }
@@ -224,7 +226,7 @@ export class RoomlistComponent implements OnInit {
       this.router.navigate(['/grouproom',row.chatKey]);
     }else {
       sendInitialMessage(true);
-
+      
     }
   }
 
