@@ -8,6 +8,12 @@
         <mat-icon>power_settings_new</mat-icon>
       </button>
   </div>
+
+  <div style="display: flex; color: blanchedalmond; justify-content: space-around;align-content: center;">
+    <div>#1</div> 
+    <div>#2</div>
+    <div>#3</div>
+  </div>
  
   <h2 class="heading">Room List</h2>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
@@ -24,7 +30,7 @@
     <span class="NameClass">Add Group :
       <button mat-flat-button color="primary" class="add-button" (click)="openPopup()"><mat-icon>add</mat-icon></button>  
 
-      <button mat-flat-button color="primary" class="add-button" [routerLink]="['/addgroup']">Navigation</button>  
+      <button mat-flat-button color="primary" class="add-button" style="color: black;" [routerLink]="['/addgroup']">Navigation</button>  
     </span>
   </div>
 

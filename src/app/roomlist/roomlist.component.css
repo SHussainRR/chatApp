@@ -5,9 +5,11 @@
 } */
 
 
+
 .example-container {
   background-image: url('./roomWallpaper.jfif');
   min-height: 1200px;
+  /* background-color: rgb(12, 12, 12,.5); */
   padding: 16px;
 }
 .NameClass{

@@ -1,3 +1,4 @@
+import { AddgroupComponent } from './addgroup/addgroup.component';
 import { GrouproomComponent } from './grouproom/grouproom.component';
 import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login-routing.module').then(m => m.LoginRoutingModule) },
   { path: 'roomlist', component: RoomlistComponent },
   { path: 'addroom', component: AddroomComponent },
+  { path: 'addgroup' , component:AddgroupComponent},
   { path: 'addone', component: AddoneComponent},
   { path: 'chatroomone/:roomname' , component: OneChatroomComponent},
   { path: 'chatroom/:roomname', component: ChatroomComponent },
