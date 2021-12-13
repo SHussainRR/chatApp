@@ -30,7 +30,7 @@
   
   .sidebar-logo {
 	position: relative;
-	height: 64px;
+	height: 150px;
 	padding-left: 24px;
 	overflow: hidden;
 	line-height: 64px;
@@ -39,15 +39,15 @@
   }
   
   .sidebar-logo img {
-	display: inline-block;
-	height: 32px;
-	width: 32px;
+	
+	height: 98px;
+	width: 216px;
 	vertical-align: middle;
   }
   
   .sidebar-logo h1 {
 	display: inline-block;
-	margin: 0 0 0 20px;
+	margin: 0 0 0 5px;
 	color: #fff;
 	font-weight: 600;
 	font-size: 14px;
@@ -62,6 +62,7 @@
   }
   
   .app-header {
+    overflow: hidden;
 	position: relative;
 	height: 64px;
 	padding: 0;
@@ -70,11 +71,13 @@
   }
   
   nz-content {
-	margin: 24px;
+	/* margin: 24px; */
+    padding: 24px;
+	background: #ececec;
   }
   
   .inner-content {
-	padding: 24px;
+	/* padding: 24px; */
 	background: #fff;
 	height: 100%;
   }

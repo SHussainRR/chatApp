@@ -3,9 +3,9 @@
     [nzTrigger]="null" *ngIf="isLoggedIn">
 
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
+      <a href="https://logiciel-services.com" target="_blank">
+        <img src="https://logiciel-services.com/wp-content/themes/logiciel/assets/images/new-logo.png" alt="logo">
+        <h1>Logiciel Chat Service</h1>
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -38,10 +38,9 @@
     <nz-header *ngIf="isLoggedIn">
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
-            <app-navigation-bar></app-navigation-bar>
-          </i>
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
+        <app-navigation-bar  style="display: inline-block; float: right; margin-right: 34px;" ></app-navigation-bar>
       </div>
     </nz-header>
     <nz-content>
