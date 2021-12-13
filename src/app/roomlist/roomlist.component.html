@@ -22,34 +22,59 @@
 
 
 
-  <div style="display: flex; color: blanchedalmond; justify-content: space-around;align-content: center;">
+  <div class="roomCreation">
     <div>
-      <mat-card>
+      <mat-card class="cardDesign">
         <div>
-          Conference Room
+          <span class="cardHead">Conference Room</span> 
+          <hr>
+
+          <div>
+            Create : <button mat-flat-button color="primary" [routerLink]="['/addroom']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
+          </div>
+
+
         </div>
+        
     </mat-card>
   </div> 
 
-    <div>
-      <mat-card>
-        <div>
-          Group Room
-        </div>
-      </mat-card>
-    </div>
+  <div>
+    <mat-card class="cardDesign">
+      <div>
+        <span class="cardHead">Group Room</span>
+        <hr>
 
-   <div>
-     <mat-card>
-       <div>
-         Personal Chat Room
+        <div>
+          Create : <button mat-flat-button color="primary" [routerLink]="['/addgroup']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
+          <button mat-flat-button color="primary" class="add-button" (click)="openPopup()"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
         </div>
-      </mat-card>
+
+
+      </div>
+      
+  </mat-card>
+</div> 
+
+<div>
+  <mat-card class="cardDesign">
+    <div>
+      <span class="cardHead">Personal Chat Room</span>
+      <hr>
+
+      <div>
+        Create : <button mat-flat-button color="primary" [routerLink]="['/addone']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
+      </div>
+
+
     </div>
+    
+</mat-card>
+</div> 
   
   
   </div>
- 
+<!--  
   <h2 class="heading">Room List</h2>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -67,7 +92,7 @@
 
       <button mat-flat-button color="primary" class="add-button" style="color: black;" [routerLink]="['/addgroup']">Navigation</button>  
     </span>
-  </div>
+  </div> -->
 
   <div class="modal" style="background-color: rgb(255, 255, 255,0.9); margin: 8px 8px 8px 0px; padding: 8px; max-width: 92%"
   tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">

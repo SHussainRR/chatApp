@@ -88,7 +88,24 @@ table {
   display: flex;
 }
 .add-button{
-  margin:  -4px 0px 20px 24px;
+  margin:  8px 16px;
+}
+.cardDesign{
+  background-color: rgba(247, 247, 247, 0.753);
+  min-width: 200px;
+
+}
+.cardHead{
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.roomCreation{
+  display: flex; 
+  justify-content: space-around;
+  align-content: center; 
+  margin: 30px;
 }
 
 .example-loading-shade {
