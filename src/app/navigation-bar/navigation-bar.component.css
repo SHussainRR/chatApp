@@ -1,12 +1,13 @@
 .logo {
-	width: 120px;
-	height: 31px;
-	background: url('https://logiciel-services.com/wp-content/themes/logiciel/assets/images/logo.png');
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-	margin: 16px 24px 16px 0;
+	background: url('src/images/logicielLogo.jfif');
+
+	height: 60px;
+	width: 140px;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	/* margin: 16px 24px 16px 0; */
 	float: left;
 }
 

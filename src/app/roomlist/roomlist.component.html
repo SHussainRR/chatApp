@@ -1,18 +1,53 @@
 <div class="example-container" >
   
-  <div class="NameClass">
-    <h3 style="color: white;">
-      User Nickname :&nbsp;{{nickname}}
-    </h3>
-      <button mat-button class="matt-button" (click)="logout()" >
-        <mat-icon>power_settings_new</mat-icon>
-      </button>
+  <div style=" float: right;">
+  <!-- <button mat-button class="matt-button" (click)="logout()" >
+    <mat-icon>power_settings_new</mat-icon>
+  </button> -->
+    <button mat-flat-button color="primary"  (click)="logout()"><mat-icon style="margin-top: 5px;">power_settings_new</mat-icon></button>
   </div>
 
+
+  <div>
+    <h1 class="heading centering" >Chat Application</h1>
+  </div>
+
+
+  <div class="centering">
+    <h3 class="NameClass" >
+      User Nickname :&nbsp;{{nickname}}
+    </h3>
+      
+  </div>
+
+
+
   <div style="display: flex; color: blanchedalmond; justify-content: space-around;align-content: center;">
-    <div>#1</div> 
-    <div>#2</div>
-    <div>#3</div>
+    <div>
+      <mat-card>
+        <div>
+          Conference Room
+        </div>
+    </mat-card>
+  </div> 
+
+    <div>
+      <mat-card>
+        <div>
+          Group Room
+        </div>
+      </mat-card>
+    </div>
+
+   <div>
+     <mat-card>
+       <div>
+         Personal Chat Room
+        </div>
+      </mat-card>
+    </div>
+  
+  
   </div>
  
   <h2 class="heading">Room List</h2>

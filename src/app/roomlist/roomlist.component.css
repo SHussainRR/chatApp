@@ -13,10 +13,15 @@
   padding: 16px;
 }
 .NameClass{
-  display: flex;
-  justify-content: space-between;
-  color: whitesmoke;
+  color: white;
+  font-size: 16px;
 }
+
+.cWhite{
+  color: white;
+}
+
+
 
 .matt-button{
   border-radius: 12px; 
@@ -37,8 +42,15 @@ mat-icon{
 
 .heading{
   color: whitesmoke;
-  font-size: 24px;
-  font-weight: 800;
+  font-size: 32px;
+  font-weight: 700;
+  justify-content: center;
+}
+
+.centering{
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
 }
 
 .roomName{
@@ -46,11 +58,11 @@ mat-icon{
   font-size: 16px;
 }
 
-.heading:hover{
+/* .heading:hover{
   color: whitesmoke;
   font-size: 28px;
   font-weight: 800;
-}
+} */
 
 .roomDetails{
   border-radius: 16px;
