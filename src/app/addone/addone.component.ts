@@ -11,7 +11,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
-
 @Component({
   selector: 'app-addone',
   templateUrl: './addone.component.html',
@@ -19,24 +18,24 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddoneComponent implements OnInit {
 
-roomForm: FormGroup;
+  roomForm: FormGroup;
   nickname = '';
   roomname = '';
-  UserTwo='';
+  UserTwo = '';
   UserOne = '';
 
   ref = firebase.database().ref('OnetoOne/');
   matcher = new MyErrorStateMatcher();
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private snackBar: MatSnackBar) {
-              }
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({
-      'roomname' : [null, Validators.required]
+      'roomname': [null, Validators.required]
     });
     this.nickname = localStorage.getItem('nickname');
   }
@@ -45,7 +44,7 @@ roomForm: FormGroup;
     this.router.navigate(['/roomlist']);
   }
   async findData(name): Promise<boolean> {
-    return new Promise((res)=>{
+    return new Promise((res) => {
       this.ref.orderByChild('roomname').equalTo(name).once('value', (snapshot: any) => {
         if (snapshot.exists()) {
           res(true);
@@ -58,28 +57,19 @@ roomForm: FormGroup;
   async onFormSubmit(form: any) {
     const room = form;
     const roomExists: Boolean[] = await Promise.all([
-      this.findData((this.UserTwo+" "+this.nickname)),
-      this.findData((this.nickname+" "+this.UserTwo))
+      this.findData((this.UserTwo + " " + this.nickname)),
+      this.findData((this.nickname + " " + this.UserTwo))
     ])
-    if(roomExists.some(item=>item)){
+    if (roomExists.some(item => item)) {
       this.snackBar.open('Your Room with this User already exists !! ');
-    }else{
-
+    } else {
       const newRoom = firebase.database().ref('OnetoOne/').push();
       room.UserTwo = this.UserTwo;
       room.UserOne = this.nickname;
-      room.roomname=this.nickname+" "+this.UserTwo;
+      room.roomname = this.nickname + " " + this.UserTwo;
       // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
       newRoom.set(room);
       this.router.navigate(['/roomlist']);
     }
   }
-
-
-
- 
-
-
-
-
 }

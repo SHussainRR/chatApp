@@ -26,14 +26,14 @@ export class AddroomComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private snackBar: MatSnackBar) {
-              }
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({
-      'roomname' : [null, Validators.required]
+      'roomname': [null, Validators.required]
     });
   }
 

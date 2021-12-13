@@ -22,7 +22,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class LoginComponent implements OnInit {
 
   PageStatus = true;
-  alreadyExist= false;
+  alreadyExist = false;
   errorMessage = ""
   isLoggedIn = false;
   loginForm: FormGroup;
@@ -33,38 +33,38 @@ export class LoginComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) { }
-  
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  checkUserNameAvailable(name, login = false){
-    return new Promise((res)=>{
+  checkUserNameAvailable(name, login = false) {
+    return new Promise((res) => {
       this.ref.orderByChild('nickname').equalTo(name).once('value', snapshot => {
         const exists = snapshot.exists();
-        if(login) {
-          if(exists) {
+        if (login) {
+          if (exists) {
             return res(null)
           } else {
-            return res({usernameExists:false});
+            return res({ usernameExists: false });
           }
-        }else {
-          console.log("HERE",name)
-          if(exists) {
+        } else {
+          console.log("HERE", name)
+          if (exists) {
             console.log("EXISTS")
-            return res({usernameExists:true});
-          } else{
-            
-          console.log("NOT EXISTS")
+            return res({ usernameExists: true });
+          } else {
+
+            console.log("NOT EXISTS")
             return res(null)
           }
         }
       });
     })
   }
- 
-   usernameValidator(login) {
-     return (control) => {
-      return this.checkUserNameAvailable(control.value,login);
+
+  usernameValidator(login) {
+    return (control) => {
+      return this.checkUserNameAvailable(control.value, login);
     };
   }
   ngOnInit() {
@@ -99,38 +99,38 @@ export class LoginComponent implements OnInit {
 
 
   }
-  showError(text:string) {
+  showError(text: string) {
     this.errorMessage = text;
     Object.values(this.loginForm.controls).forEach(control => {
-        control.setErrors({})
-        control.markAsDirty();
-        control.updateValueAndValidity({ onlySelf: true });
+      control.setErrors({})
+      control.markAsDirty();
+      control.updateValueAndValidity({ onlySelf: true });
     });
   }
   onFormSubmit(form: any) {
-    if (this.loginForm.valid) {      
+    if (this.loginForm.valid) {
       this.data.emitLoginStatus(true);
       const login = form;
       localStorage.setItem('nickname', login.nickname);
       this.ref.orderByChild('nickname').equalTo(login.nickname).once('value', snapshot => {
         const res = snapshotToArray(snapshot);
-        if(res?.length)
-        localStorage.setItem('userId', res[0].key);
+        if (res?.length)
+          localStorage.setItem('userId', res[0].key);
       });
       this.router.navigate(['/roomlist']);
-    } 
+    }
   }
 
   onSignUpFormSubmit(form: any) {
     const login = this.signupForm.value;
-    if (this.signupForm.valid) {      
+    if (this.signupForm.valid) {
       this.data.emitLoginStatus(true);
       const newUser = firebase.database().ref('users/').push();
-      newUser.set({nickname: login.nickname});
-      console.log({login})
+      newUser.set({ nickname: login.nickname });
+      console.log({ login })
       localStorage.setItem('nickname', login.nickname);
       localStorage.setItem('userId', newUser.key);
-      
+
       this.router.navigate(['/roomlist']);
     }
   }

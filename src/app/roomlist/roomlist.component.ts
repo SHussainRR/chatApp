@@ -24,7 +24,7 @@ interface Room {
   name: string;
 }
 interface SelectUser {
-  itemName:User;
+  itemName: User;
   id: string;
 }
 @Component({
@@ -40,8 +40,8 @@ export class RoomlistComponent implements OnInit {
   OnetoOne = [];
   onlineUsers = [];
   offlineUsers = [];
-  allUsers:SelectUser[] = [];
-  allAvaibUsers:SelectUser[] = [];
+  allUsers: SelectUser[] = [];
+  allAvaibUsers: SelectUser[] = [];
   displayStyle = "none";
   isLoadingResults = true;
   chatwith = '';
@@ -109,7 +109,7 @@ export class RoomlistComponent implements OnInit {
 
   fetchGroupList() {
     firebase.database().ref('group/').on('value', (resp2: any) => {
-      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el=>el);
+      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el);
     });
   }
 
@@ -121,7 +121,7 @@ export class RoomlistComponent implements OnInit {
     firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
 
-      const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
+      const newVar: SelectUser[] = roomusers.filter(el => el.nickname && el.nickname !== this.nickname).map(ru => {
         return { "id": ru.key, "itemName": ru.nickname };
       });
       console.log(newVar);
@@ -142,18 +142,18 @@ export class RoomlistComponent implements OnInit {
   }
 
 
-  createGroupRoom(){
+  createGroupRoom() {
     const group = {
-      members: [this.nickname, ...this.selectedItems.map(el=>el.itemName)],
+      members: [this.nickname, ...this.selectedItems.map(el => el.itemName)],
       name: this.groupName
     }
-    
+
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-    newRoom.set(group).then((response)=>{
+    newRoom.set(group).then((response) => {
       this.selectedItems = [];
       this.groupName = ""
-    });  
+    });
 
   }
 
@@ -171,8 +171,8 @@ export class RoomlistComponent implements OnInit {
       let roomuser = [];
       roomuser = snapshotToArray(resp);
       const user = roomuser.find(x => x.nickname === this.nickname);
-      
-      if (!user)  {
+
+      if (!user) {
         const newroomuser = { roomname: '', nickname: '', status: '' };
         newroomuser.roomname = roomname;
         newroomuser.nickname = this.nickname;
@@ -196,37 +196,37 @@ export class RoomlistComponent implements OnInit {
 
 
   enterGroupRoom(row) {
-    const sendInitialMessage = (bool=false) => {
+    const sendInitialMessage = (bool = false) => {
       const groupchat = { roomname: '', nickname: '', message: '', date: '', type: '' };
       groupchat.nickname = this.nickname;
       groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
       groupchat.message = `${this.nickname} enter the room`;
       groupchat.type = 'join';
       const navigateRoom = (key) => {
-        this.router.navigate(['/grouproom',key]);
+        this.router.navigate(['/grouproom', key]);
       }
 
-      if(bool) {
-        const newMessage = firebase.database().ref('groupmessages/').push({messages : []})
+      if (bool) {
+        const newMessage = firebase.database().ref('groupmessages/').push({ messages: [] })
         const groupref = firebase.database().ref('group/' + row.key);
-        groupref.update({chatKey: newMessage.key});
-        newMessage.then(function (response){
-         response.child("messages").push(groupchat)
-        //  console.log("newMsg.key",newMessage.key )
+        groupref.update({ chatKey: newMessage.key });
+        newMessage.then(function (response) {
+          response.child("messages").push(groupchat)
+          //  console.log("newMsg.key",newMessage.key )
           navigateRoom(newMessage.key);
         });
-      } else{
+      } else {
         firebase.database().ref('groupmessages/' + row.chatKey).child("messages").push(groupchat)
         // console.log("Row.chatkey" , row.chatKey)
         navigateRoom(row.chatKey);
       }
     }
-    if(row.chatKey) {
+    if (row.chatKey) {
       sendInitialMessage();
-      this.router.navigate(['/grouproom',row.chatKey]);
-    }else {
+      this.router.navigate(['/grouproom', row.chatKey]);
+    } else {
       sendInitialMessage(true);
-      
+
     }
   }
 

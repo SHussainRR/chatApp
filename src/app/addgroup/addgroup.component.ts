@@ -5,7 +5,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
 
-
 type User = string;
 interface SelectUser {
   itemName:User;
@@ -46,10 +45,7 @@ export class AddgroupComponent implements OnInit {
    allUsers:SelectUser[] = [];
    selectedItems: SelectUser[] = [];
    // ng dropdown
- 
-
   ref = firebase.database().ref('OnetoOne/');
- 
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -83,7 +79,6 @@ export class AddgroupComponent implements OnInit {
       enableSearchFilter: true,
       classes: "myclass custom-class"
     };
-
   }
 
 
@@ -114,6 +109,5 @@ export class AddgroupComponent implements OnInit {
   gooBack(): void {
     this.router.navigate(['/roomlist']);
   }
-
 
 }

@@ -1,23 +1,25 @@
-<div class="example-container" >
-  
+<div class="example-container">
+
   <div style=" float: right;">
-  <!-- <button mat-button class="matt-button" (click)="logout()" >
+    <!-- <button mat-button class="matt-button" (click)="logout()" >
     <mat-icon>power_settings_new</mat-icon>
   </button> -->
-    <button mat-flat-button color="primary"  (click)="logout()"><mat-icon style="margin-top: 5px;">power_settings_new</mat-icon></button>
+    <button mat-flat-button color="primary" (click)="logout()">
+      <mat-icon style="margin-top: 5px;">power_settings_new</mat-icon>
+    </button>
   </div>
 
 
   <div>
-    <h1 class="heading centering" >Chat Application</h1>
+    <h1 class="heading centering">Chat Application</h1>
   </div>
 
 
   <div class="centering">
-    <h3 class="NameClass" >
+    <h3 class="NameClass">
       User Nickname :&nbsp;{{nickname}}
     </h3>
-      
+
   </div>
 
 
@@ -26,55 +28,63 @@
     <div>
       <mat-card class="cardDesign">
         <div>
-          <span class="cardHead">Conference Room</span> 
+          <span class="cardHead">Conference Room</span>
           <hr>
 
           <div>
-            Create : <button mat-flat-button color="primary" [routerLink]="['/addroom']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
+            Create : <button mat-flat-button color="primary" [routerLink]="['/addroom']" class="add-button">
+              <mat-icon style="margin-top: 4px;">add</mat-icon>
+            </button>
           </div>
 
 
         </div>
-        
-    </mat-card>
-  </div> 
 
-  <div>
-    <mat-card class="cardDesign">
-      <div>
-        <span class="cardHead">Group Room</span>
-        <hr>
+      </mat-card>
+    </div>
 
+    <div>
+      <mat-card class="cardDesign">
         <div>
-          Create : <button mat-flat-button color="primary" [routerLink]="['/addgroup']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
-          <button mat-flat-button color="primary" class="add-button" (click)="openPopup()"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
+          <span class="cardHead">Group Room</span>
+          <hr>
+
+          <div>
+            Create : <button mat-flat-button color="primary" [routerLink]="['/addgroup']" class="add-button">
+              <mat-icon style="margin-top: 4px;">add</mat-icon>
+            </button>
+            <button mat-flat-button color="primary" class="add-button" (click)="openPopup()">
+              <mat-icon style="margin-top: 4px;">add</mat-icon>
+            </button>
+          </div>
+
+
         </div>
 
-
-      </div>
-      
-  </mat-card>
-</div> 
-
-<div>
-  <mat-card class="cardDesign">
-    <div>
-      <span class="cardHead">Personal Chat Room</span>
-      <hr>
-
-      <div>
-        Create : <button mat-flat-button color="primary" [routerLink]="['/addone']" class="add-button"><mat-icon style="margin-top: 4px;">add</mat-icon></button>  
-      </div>
-
-
+      </mat-card>
     </div>
-    
-</mat-card>
-</div> 
-  
-  
+
+    <div>
+      <mat-card class="cardDesign">
+        <div>
+          <span class="cardHead">Personal Chat Room</span>
+          <hr>
+
+          <div>
+            Create : <button mat-flat-button color="primary" [routerLink]="['/addone']" class="add-button">
+              <mat-icon style="margin-top: 4px;">add</mat-icon>
+            </button>
+          </div>
+
+
+        </div>
+
+      </mat-card>
+    </div>
+
+
   </div>
-<!--  
+  <!--  
   <h2 class="heading">Room List</h2>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -94,22 +104,25 @@
     </span>
   </div> -->
 
-  <div class="modal" style="background-color: rgb(255, 255, 255,0.9); margin: 8px 8px 8px 0px; padding: 8px; max-width: 92%"
-  tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
+  <div class="modal"
+    style="background-color: rgb(255, 255, 255,0.9); margin: 8px 8px 8px 0px; padding: 8px; max-width: 92%"
+    tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
 
-      <div class="modal-header row" style=" display: flex; justify-content: space-between;">
-        <h4  style="margin-left: 50px; ">Group Chat</h4>
-       
-        <div style="float:right;" (click)="closePopup()"> <mat-icon>close</mat-icon></div>
-      </div>
+        <div class="modal-header row" style=" display: flex; justify-content: space-between;">
+          <h4 style="margin-left: 50px; ">Group Chat</h4>
+
+          <div style="float:right;" (click)="closePopup()">
+            <mat-icon>close</mat-icon>
+          </div>
+        </div>
 
 
-      <div class="modal-body" style="max-width: 50%;">
-        
+        <div class="modal-body" style="max-width: 50%;">
 
-        <!-- <tr *ngIf="allUsers.length > 0">
+
+          <!-- <tr *ngIf="allUsers.length > 0">
           <th>All Users</th>
         </tr>
         <tr *ngFor="let user of allUsers">
@@ -119,36 +132,36 @@
         </tr> -->
 
 
-      <input type="text" [(ngModel)]="groupName"/>
+          <input type="text" [(ngModel)]="groupName" />
 
-      <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" 
-    [settings]="dropdownSettings"
-    ></angular2-multiselect>
+          <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
+          </angular2-multiselect>
 
-    <!-- 
+          <!-- 
     (onSelectAll)="onSelectAll($event)"
     (onDeSelectAll)="onDeSelectAll($event)" -->
-      </div>
+        </div>
 
-      <div class="modal-footer" style="justify-content: right;">
-        <button type="button" (click)= "createGroupRoom()" >Create Room </button>
-        <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
-      </div>
+        <div class="modal-footer" style="justify-content: right;">
+          <button type="button" (click)="createGroupRoom()">Create Room </button>
+          <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+        </div>
 
+      </div>
     </div>
   </div>
-</div>
 
-  
+
   <div class="row" style="display:flex;">
 
-    <div class="col-3"  style="color: black; min-width: 20%; background-color: rgb(255, 255, 255,0.7); margin-right: 24px; padding: 16px;">
-       
-      <div *ngIf= "offlineUsers.length == 0 && onlineUsers.length == 0"> 
-         No Users !! 
+    <div class="col-3"
+      style="color: black; min-width: 20%; background-color: rgb(255, 255, 255,0.7); margin-right: 24px; padding: 16px;">
+
+      <div *ngIf="offlineUsers.length == 0 && onlineUsers.length == 0">
+        No Users !!
       </div>
 
-      <table style="width:100%" >
+      <table style="width:100%">
 
         <!-- all Users -->
         <!-- <tr *ngIf="allUsers.length > 0">
@@ -167,36 +180,36 @@
         </tr>
         <tr *ngFor="let user of onlineUsers">
           <td>
-            <mat-icon style="color:green;">perm_identity</mat-icon> 
-          <span>{{user.nickname}}</span>
+            <mat-icon style="color:green;">perm_identity</mat-icon>
+            <span>{{user.nickname}}</span>
           </td>
         </tr>
-        
+
         <!-- Offline Users  -->
         <tr>
-          <th *ngIf= "offlineUsers.length >0">Offline Users</th>
+          <th *ngIf="offlineUsers.length >0">Offline Users</th>
         </tr>
         <tr *ngFor="let user of offlineUsers">
           <td>
-            <mat-icon style="color:red">perm_identity</mat-icon> 
-          <span>{{user.nickname}}</span>
+            <mat-icon style="color:red">perm_identity</mat-icon>
+            <span>{{user.nickname}}</span>
           </td>
         </tr>
-       
+
       </table>
     </div>
 
     <div class="col-9" style="min-width: 70%;">
-      <div class="roomDetails" style="float: left; min-width: 100%;" >
-        <table mat-table [dataSource]="rooms" class="example-table"
-               matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
-               
+      <div class="roomDetails" style="float: left; min-width: 100%;">
+        <table mat-table [dataSource]="rooms" class="example-table" matSort matSortActive="roomname" matSortDisableClear
+          matSortDirection="asc">
+
           <!-- Room Name Column -->
           <ng-container matColumnDef="roomname">
             <th mat-header-cell [routerLink]="['/addroom']" *matHeaderCellDef class="roomName">Room Name</th>
-            <td mat-cell class="roomName" *matCellDef="let row"  >{{row.roomname}}</td>
+            <td mat-cell class="roomName" *matCellDef="let row">{{row.roomname}}</td>
           </ng-container>
-          
+
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterChatRoom(row.roomname)"></tr>
         </table>
@@ -207,49 +220,49 @@
 
 
   <div class="col-9" style="min-width: 63%; margin-top: 16px;">
-    <div class="roomDetails" style="float: left; min-width: 93%;" >
-      <table mat-table [dataSource]="OnetoOne" class="example-table"
-             matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
-             
+    <div class="roomDetails" style="float: left; min-width: 93%;">
+      <table mat-table [dataSource]="OnetoOne" class="example-table" matSort matSortActive="roomname"
+        matSortDisableClear matSortDirection="asc">
+
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
 
-          
+
           <th mat-header-cell *matHeaderCellDef class="roomName"> Your One to One Rooms</th>
-          <td mat-cell class="roomName"  *matCellDef="let row">{{row.roomname}}</td>
+          <td mat-cell class="roomName" *matCellDef="let row">{{row.roomname}}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
-          
+
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterOnetoOneChatRoom(row.roomname)"></tr>
       </table>
     </div>
   </div>
-  
+
   <div class="col-9" style="min-width: 63%; margin-top: 16px;">
-    <div class="roomDetails" style="float: left; min-width: 93%;" >
-      <table mat-table [dataSource]="groupList" class="example-table"
-             matSort matSortActive="roomname" matSortDisableClear matSortDirection="asc">
-             
+    <div class="roomDetails" style="float: left; min-width: 93%;">
+      <table mat-table [dataSource]="groupList" class="example-table" matSort matSortActive="roomname"
+        matSortDisableClear matSortDirection="asc">
+
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
 
-          
+
           <th mat-header-cell *matHeaderCellDef class="roomName"> Your Group List</th>
-          <td mat-cell class="roomName"  *matCellDef="let row">{{row.name || row.members.join(', ')}}</td>
+          <td mat-cell class="roomName" *matCellDef="let row">{{row.name || row.members.join(', ')}}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
-          
+
         </ng-container>
-        
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterGroupRoom(row)"></tr>
       </table>
     </div>
   </div>
-  
-  
+
+
 
 </div>
