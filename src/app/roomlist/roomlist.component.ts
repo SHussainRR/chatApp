@@ -295,6 +295,7 @@ export class RoomlistComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('nickname');
+    // localStorage.removeItem('userId');
     this.router.navigate(['/login']);
   }
 
