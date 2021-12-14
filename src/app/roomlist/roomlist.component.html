@@ -1,15 +1,5 @@
 <div class="example-container">
 
-  <div style=" float: right;">
-    <!-- <button mat-button class="matt-button" (click)="logout()" >
-    <mat-icon>power_settings_new</mat-icon>
-  </button> -->
-    <button mat-flat-button color="primary" (click)="logout()">
-      <mat-icon style="margin-top: 5px;">power_settings_new</mat-icon>
-    </button>
-  </div>
-
-
   <div>
     <h1 class="heading centering">Chat Application</h1>
   </div>
@@ -19,76 +9,7 @@
     <h3 class="NameClass">
       User Nickname :&nbsp;{{nickname}}
     </h3>
-
   </div>
-
-
-<!-- 
-  <div class="roomCreation">
-    <div>
-      <mat-card class="cardDesign">
-        <div>
-          <span class="cardHead">Conference Room</span>
-          <hr>
-          <div>
-            Create : <button mat-flat-button color="primary" [routerLink]="['/addroom']" class="add-button">
-              <mat-icon style="margin-top: 4px;">add</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-
-    <div>
-      <mat-card class="cardDesign">
-        <div>
-          <span class="cardHead">Group Room</span>
-          <hr>
-          <div>
-            Create : <button mat-flat-button color="primary" [routerLink]="['/addgroup']" class="add-button">
-              <mat-icon style="margin-top: 4px;">add</mat-icon>
-            </button>
-            <button mat-flat-button color="primary" class="add-button" (click)="openPopup()">
-              <mat-icon style="margin-top: 4px;">add</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    <div>
-      <mat-card class="cardDesign">
-        <div>
-          <span class="cardHead">Personal Chat Room</span>
-          <hr>
-          <div>
-            Create : <button mat-flat-button color="primary" [routerLink]="['/addone']" class="add-button">
-              <mat-icon style="margin-top: 4px;">add</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-  </div> -->
-
-  <!--  
-  <h2 class="heading">Room List</h2>
-  <div class="example-loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-  </div>
-
-  <div class="button-row">
-    <span class="NameClass">Add one to one Room :
-      <button mat-flat-button color="primary" class="add-button" [routerLink]="['/addone']"><mat-icon>add</mat-icon></button>  
-    </span>
-  </div>
-
-  <div class="button-row">
-    <span class="NameClass">Add Group :
-      <button mat-flat-button color="primary" class="add-button" (click)="openPopup()"><mat-icon>add</mat-icon></button>  
-
-      <button mat-flat-button color="primary" class="add-button" style="color: black;" [routerLink]="['/addgroup']">Navigation</button>  
-    </span>
-  </div> -->
 
   <div class="modal"
     style="background-color: rgb(255, 255, 255,0.9); margin: 8px 8px 8px 0px; padding: 8px; max-width: 92%"
@@ -106,17 +27,6 @@
 
 
         <div class="modal-body" style="max-width: 50%;">
-
-
-          <!-- <tr *ngIf="allUsers.length > 0">
-          <th>All Users</th>
-        </tr>
-        <tr *ngFor="let user of allUsers">
-          <td> 
-          <span>{{user.nickname}}</span>
-          </td>
-        </tr> -->
-
 
           <input type="text" [(ngModel)]="groupName" />
 
