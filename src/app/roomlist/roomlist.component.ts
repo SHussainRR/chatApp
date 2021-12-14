@@ -226,6 +226,7 @@ export class RoomlistComponent implements OnInit {
       groupchat.message = `${this.nickname} enter the room`;
       groupchat.type = 'join';
       const navigateRoom = (key) => {
+        makeUserOnline(true);
         this.router.navigate(['/grouproom', key]);
       }
 
@@ -269,11 +270,6 @@ export class RoomlistComponent implements OnInit {
       roomuser = snapshotToArray(resp);
 
 
-
-
-
-
-
       const user = roomuser.find(x => x.nickname === this.nickname);
       if (user !== undefined) {
         const userRef = firebase.database().ref('Oneroomusers/' + user.key);
@@ -288,6 +284,7 @@ export class RoomlistComponent implements OnInit {
       }
     });
 
+    makeUserOnline(true);
     this.router.navigate(['/chatroomone', roomname]);
   }
 

@@ -100,6 +100,7 @@ export class ChatroomComponent implements OnInit {
       }
     });
 
+    
     this.router.navigate(['/roomlist']);
   }
 
