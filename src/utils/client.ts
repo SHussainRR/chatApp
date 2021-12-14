@@ -29,4 +29,15 @@ export abstract class ClientService {
         }
         return result[on](value, callback)
     }
+    
+    // static update ( ref: string, value: string){
+    //     let result = this.getDataBase().database().ref(ref);
+    //     return result(value)
+    // }
+
+    // const makeUserOnline = (online) => {
+    //     const userRef = firebase.database().ref('users/' + localStorage.getItem('userId'));
+    //     userRef.update({status: online? "online" : "ofline" });
+
+
   }

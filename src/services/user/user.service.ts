@@ -16,7 +16,12 @@ export abstract class UserService {
     }]);
   }
 
-//   static changeUserStatus(online,result) {
-//     ClientService.update(DATAB_NAME,"on","dasdas",{das})
-//   }
+  // static changeUserStatus(online,result) {
+  //   ClientService.update(DATABASE_NAME,"on","dasdas",{das})
+  // }
+
 }
+
+// const makeUserOnline = (online) => {
+//   const userRef = firebase.database().ref('users/' + localStorage.getItem('userId'));
+//   userRef.update({status: online? "online" : "ofline" });
