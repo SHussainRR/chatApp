@@ -1,12 +1,11 @@
 .example-container {
   display: flex;
-  background-image: url('..\roomlist\roomWallpaper.jfif');
-  padding: 10px;
-  min-height: 900px;
+  /* background-image: url('..\roomlist\roomWallpaper.jfif'); */
+  /* padding: 10px;*/
+  /* min-height:fit-content;  */
 }
 
 .drawer-container {
-  /* position: absolute; */
   background-color: rgb(255, 255, 255,.4);
   border-radius: 8px;
   right: 0;
@@ -22,10 +21,6 @@
  
 }
 
-.users-pane {
-  height: 500px;
-}
-
 .users-card {
   margin: 10px 20px;
 }
@@ -35,25 +30,6 @@
   font-weight: 600;
   margin-top: 5px;
   margin-left: 10px;
-}
-
-footer.sticky-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background-color: #ffffff;
-  border-top: solid 1px #efefef;
-}
-
-/* .message-form {
-  margin-left: 200px;
-} */
-
-.message-form-field {
-  width: 94%;
-  margin: 0 4% 0 2%;
 }
 
 .backButton {
@@ -83,7 +59,6 @@ footer.sticky-footer {
 
 .chat-message {
   width: 80%;
-  min-height: 40px;
 }
 
 .chat-message .right-bubble {
@@ -176,16 +151,49 @@ footer.sticky-footer {
   left: 10%;
   right:10%;
 }
-
 .chat-content {
   overflow-y: scroll;
-  height: 600px;
-  padding-bottom: 120px;
+  height: 950px;
+  padding-bottom: 60px;
 }
-
 
 .chatSizing{
-  width: 1650px;
+  width: 100%;
 }
 
+/* Footer Here */
 
+footer.sticky-footer {
+  position:fixed;
+  bottom:0px;
+  background-color:pink;
+  width:85%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .message-form {
+  margin-left: 200px;
+} */
+
+.message-form-field {
+  width:95%;
+  margin: 0 16px;
+  padding: 0 16px;
+}
+
+@media (max-width: 1400px){
+  .message-form-field {
+    width:80%;
+    margin: 0 16px;
+    padding: 0 16px;   
+  }
+}
+
+@media (max-width: 915px){
+  .message-form-field {
+    width:70%;
+    margin: 0 16px;
+    padding: 0 16px;
+  }
+}
