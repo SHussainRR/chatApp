@@ -2,14 +2,14 @@
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null" *ngIf="isLoggedIn">
 
-    <div class="sidebar-logo">
+    <div class="sidebar-logo" *ngIf= "!isCollapsed" >
       <a href="https://logiciel-services.com" target="_blank">
         <img src="https://logiciel-services.com/wp-content/themes/logiciel/assets/images/new-logo.png" alt="logo">
         <h1>Logiciel Chat Service</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" >
+      <!-- <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/welcome">Welcome</a>
@@ -21,15 +21,38 @@
             <a>Workplace</a>
           </li>
         </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+      </li> -->
+
+
+
+
+
+      <li nz-submenu nzOpen  nzTitle="Conference Room" nzIcon="usergroup-add">
+        
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
+            <a [routerLink]="['/addroom']">Create Conference Room</a>
           </li>
         </ul>
       </li>
-    </ul>
+
+      <li nz-submenu nzOpen nzTitle="Group Room" nzIcon="team">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/addgroup']" >Create Group Room</a>
+          </li>
+        </ul>
+      </li>
+    
+
+    <li nz-submenu nzOpen nzTitle="Personal Room" nzIcon="user-add">
+      <ul>
+        <li nz-menu-item nzMatchRouter>
+          <a [routerLink]="['/addone']">Create Personal Room</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 
 
   </nz-sider>
@@ -40,7 +63,7 @@
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
-        <app-navigation-bar  style="display: inline-block; float: right; margin-right: 34px;" ></app-navigation-bar>
+        <app-navigation-bar  style="display: inline-block; float:right; margin-right: 34px;" ></app-navigation-bar>
       </div>
     </nz-header>
     <nz-content>
