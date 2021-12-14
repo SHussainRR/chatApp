@@ -1,0 +1,54 @@
+.message-container{
+ height: calc(100vh - 64px);   
+ background: red;;
+ min-width: 600px;
+}
+
+.chat-data{
+    height: 60px;
+    background: aqua;
+
+}
+
+
+.messages-container{
+    height: calc(100% - 120px);
+    background: blue;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+
+.send-container{
+    height: 60px;
+    background: rgb(61, 61, 61);
+
+}
+
+.chat-bubble{
+    display: block;
+    max-width: 150px;
+    background: yellow;
+    border-radius: 10px;
+    padding: 10px 30px 10px 10px;
+    text-align: left;
+    margin-top: 5px;
+    float: right;
+}
+
+.self-chat {
+    background: red;
+    float: left;
+}
+.chat-bubble-container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+.mt {
+    margin-top: 15px;
+}
+
+.chat-bubble-container{
+    width: 100%;
+}

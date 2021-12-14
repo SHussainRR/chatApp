@@ -7,6 +7,7 @@ import { RoomlistComponent } from './roomlist/roomlist.component';
 import { AddroomComponent } from './addroom/addroom.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { AddoneComponent } from './addone/addone.component';
+import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
 
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login-routing.module').then(m => m.LoginRoutingModule) },

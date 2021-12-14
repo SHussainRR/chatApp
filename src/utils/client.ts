@@ -29,6 +29,18 @@ export abstract class ClientService {
         }
         return result[on](value, callback)
     }
+
+    static update(ref:string, params, opts = []){
+
+        let result = this.getDataBase().database().ref(ref);
+        if(opts?.length) {
+            opts.forEach(opt=>{
+                result = result[opt.key](opt.value);
+            })
+        }
+        
+        return result.update(params);
+    }
     
     // static update ( ref: string, value: string){
     //     let result = this.getDataBase().database().ref(ref);

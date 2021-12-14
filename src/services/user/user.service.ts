@@ -16,6 +16,14 @@ export abstract class UserService {
     }]);
   }
 
+  static makeUserOnline(online: boolean) {
+    if(localStorage.getItem('userId') !== null){
+      const ref = DATABASE_NAME.user + localStorage.getItem('userId');
+      const params = {status: online? "online" : "ofline" };
+      ClientService.update(ref, params);
+    }
+  }
+
   // static changeUserStatus(online,result) {
   //   ClientService.update(DATABASE_NAME,"on","dasdas",{das})
   // }

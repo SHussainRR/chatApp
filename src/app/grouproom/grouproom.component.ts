@@ -4,7 +4,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
-import { makeUserOnline } from 'src/utils/functions';
+import { UserService } from 'src/services/user/user.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -108,7 +108,7 @@ export class GrouproomComponent implements OnInit {
     //   }
     // });
 
-    makeUserOnline(false);
+    UserService.makeUserOnline(false);
     this.router.navigate(['/roomlist']);
   }
 

@@ -1,14 +1,7 @@
-import * as firebase from "firebase";
+import { FormControl, FormGroupDirective, NgForm } from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
 
 export const isLoggedIn = () => getUserId() && true;
-
-export const makeUserOnline = (online) => {
-  if(localStorage.getItem('userId') !== null){
-    
-    const userRef = firebase.database().ref('users/' + localStorage.getItem('userId'));
-    userRef.update({status: online? "online" : "ofline" });
-  }
-}
 
 export const snapshotToArray = (snapshot: any) => {
     const returnArr = [];
@@ -24,5 +17,12 @@ export const snapshotToArray = (snapshot: any) => {
 
   export const getUserId = () => {
     return localStorage.getItem('nickname')
+  }
+
+  export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+      const isSubmitted = form && form.submitted;
+      return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
   }
   

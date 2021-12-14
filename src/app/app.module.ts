@@ -37,6 +37,7 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import en from '@angular/common/locales/en';
 import { NzButtonModule, NzInputModule } from 'ng-zorro-antd';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
 
 registerLocaleData(en);
 
@@ -52,7 +53,7 @@ registerLocaleData(en);
     OneChatroomComponent,
     AddgroupComponent,
     GrouproomComponent,
-    
+    ChatmessagesComponent,
   ],
   imports: [
     NzInputModule,

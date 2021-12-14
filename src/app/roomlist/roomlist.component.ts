@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
-import { makeUserOnline } from 'src/utils/functions';
 import { GroupService } from 'src/services/group/group.service';
 import { UserService } from 'src/services/user/user.service';
 
@@ -202,7 +201,7 @@ export class RoomlistComponent implements OnInit {
         const newRoomUser = firebase.database().ref('roomusers/').push();
         newRoomUser.set(newroomuser);
       }
-      makeUserOnline(true);
+      UserService.makeUserOnline(true);
     });
 
     this.router.navigate(['/chatroom', roomname]);
@@ -226,7 +225,7 @@ export class RoomlistComponent implements OnInit {
       groupchat.message = `${this.nickname} enter the room`;
       groupchat.type = 'join';
       const navigateRoom = (key) => {
-        makeUserOnline(true);
+        UserService.makeUserOnline(true);
         this.router.navigate(['/grouproom', key]);
       }
 
@@ -284,7 +283,7 @@ export class RoomlistComponent implements OnInit {
       }
     });
 
-    makeUserOnline(true);
+    UserService.makeUserOnline(true);
     this.router.navigate(['/chatroomone', roomname]);
   }
 

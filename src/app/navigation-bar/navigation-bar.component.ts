@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { makeUserOnline } from 'src/utils/functions';
+import { UserService } from 'src/services/user/user.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -15,7 +15,7 @@ export class NavigationBarComponent implements OnInit {
   }
 
   logout(): void {
-    makeUserOnline(false);
+    UserService.makeUserOnline(false);
     localStorage.removeItem('nickname');
     localStorage.removeItem('userId');
     this.router.navigate(['/login']);

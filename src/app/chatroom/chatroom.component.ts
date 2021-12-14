@@ -4,7 +4,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
-import { makeUserOnline } from 'src/utils/functions';
+import { UserService } from 'src/services/user/user.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -67,13 +67,14 @@ export class ChatroomComponent implements OnInit {
       'message': [null, Validators.required]
     });
   }
-
-  onFormSubmit(form: any) {
+  onFormSubmit = (form) => {
+    console.log('dasdasd',this.roomname)
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
-    chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
+    // chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.type = 'message';
+    console.log(chat)
     const newMessage = firebase.database().ref('chats/').push();
     newMessage.set(chat);
     this.chatForm = this.formBuilder.group({
@@ -96,7 +97,7 @@ export class ChatroomComponent implements OnInit {
       roomuser = snapshotToArray(resp);
       const user = roomuser.find(x => x.nickname === this.nickname);
       if (user !== undefined) {
-        makeUserOnline(false);
+        UserService.makeUserOnline(false);
       }
     });
 
