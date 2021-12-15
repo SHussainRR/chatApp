@@ -4,7 +4,7 @@
             <span style="color: whitesmoke; font-weight: 600; font-size: 18px;">Back</span>
                      </button> -->
         <div style="display: flex; align-items: center; padding-top: 24px; padding-left: 24px; ">
-            <i nz-icon style="size: 60px; cursor: pointer;" nzType="arrow-left" nzTheme="outline" (click)="leaveRoom('d')"></i>
+            <i nz-icon style="size: 60px; cursor: pointer; color:white" nzType="arrow-left" nzTheme="outline" (click)="leaveRoom('d')"></i>
         </div>
             
            
@@ -30,9 +30,11 @@
         </div>
     </div>
     <div class="send-container">
-        <form  [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value);scrollToBottom()">
-              <input matInput placeholder="Enter message here" formControlName="message" [errorStateMatcher]="matcher">
-              <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
+        <form  [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value);scrollToBottom();" class="send-form">
+              <input class="send-formInput"  matInput placeholder="Enter message here"
+               formControlName="message" [errorStateMatcher]="matcher">
+              <button type="submit" class="send-formButton"
+               [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
                 <mat-icon>send</mat-icon>
               </button>
           </form>

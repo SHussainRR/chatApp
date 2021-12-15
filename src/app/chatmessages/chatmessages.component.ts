@@ -40,7 +40,12 @@ export class ChatmessagesComponent implements OnInit {
   scrollToBottom():void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      this.reset();
+      
     } catch (err) { }
+  }
+  reset(){
+    this.chatForm.reset();
   }
 
 }
