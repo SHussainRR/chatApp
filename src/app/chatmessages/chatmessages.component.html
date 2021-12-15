@@ -1,27 +1,40 @@
 <div class="message-container">
     <div class="chat-data">
-        Chat DAta
+        <!-- <button class="backButton" >
+            <span style="color: whitesmoke; font-weight: 600; font-size: 18px;">Back</span>
+                     </button> -->
+        <div style="display: flex; align-items: center; padding-top: 24px; padding-left: 24px; ">
+            <i nz-icon style="size: 60px; cursor: pointer;" nzType="arrow-left" nzTheme="outline" (click)="leaveRoom('d')"></i>
+        </div>
+            
+           
+        
     </div>
-    <div class="messages-container" >
+    <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-container" >
         
         <div style="width: 100%;" *ngFor="let msg of messageData; let i = index">
-            <div class='chat-bubble-container'>
+            <div *ngIf= "msg.type == 'message'" class='chat-bubble-container'>
                 <div class='chat-bubble' [ngClass]="{'self-chat': msg.nickname === nickname, 'mt' : !(i > 0 && messageData[i-1].nickname === msg.nickname) }" >
-                    <span class='user-name'>{{ msg.nickname }}</span>
+                    <div class='user-name' *ngIf= "msg.nickname == nickname"> You: </div>
+                    <div class='user-name' *ngIf= "msg.nickname != nickname">{{ msg.nickname }}:</div>
                     <span class="msg-text">{{ msg.message }}</span>
+                </div>
+            </div>
+
+            <div *ngIf= "msg.type != 'message'">
+                <div >
+                    <!-- <span >{{ msg.nickname }}</span> -->
+                    <span >{{ msg.message }}</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="send-container">
-        <form  [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value)">
-            
+        <form  [formGroup]="chatForm" (ngSubmit)="sendMessage(chatForm.value);scrollToBottom()">
               <input matInput placeholder="Enter message here" formControlName="message" [errorStateMatcher]="matcher">
-              
               <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
                 <mat-icon>send</mat-icon>
               </button>
-            
           </form>
     </div>
 </div>

@@ -68,7 +68,7 @@ export class ChatroomComponent implements OnInit {
     });
   }
   onFormSubmit = (form) => {
-    console.log('dasdasd',this.roomname)
+    // console.log('dasdasd',this.roomname)
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
@@ -82,7 +82,7 @@ export class ChatroomComponent implements OnInit {
     });
   }
 
-  exitChat() {
+  exitChat=() => {
     const chat = { roomname: '', nickname: '', message: '', date: '', type: '' };
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
@@ -105,7 +105,7 @@ export class ChatroomComponent implements OnInit {
     this.router.navigate(['/roomlist']);
   }
 
-  scrollToBottom(): void {
+  scrollToBottom=():void=> {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
