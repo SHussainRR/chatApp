@@ -31,6 +31,7 @@
     margin-right: 6px; 
     border-radius: 8px; 
     padding:4px;
+    background-color: white;
 }
 .send-formButton{
     display: flex; 
@@ -55,6 +56,18 @@
     text-align: left;
     margin-top: 5px;
     float: right;
+}
+.notMsgContainer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: black;
+    margin: 24px;
+}
+.notMsgContainerSpan{
+    background-color: white;
+    border-radius: 8px;
+    padding: 8px 16px
 }
 
 .self-chat {

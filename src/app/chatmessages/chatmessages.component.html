@@ -21,10 +21,10 @@
                 </div>
             </div>
 
-            <div *ngIf= "msg.type != 'message'">
+            <div *ngIf= "msg.type != 'message'" class="notMsgContainer" >
                 <div >
                     <!-- <span >{{ msg.nickname }}</span> -->
-                    <span >{{ msg.message }}</span>
+                    <span class="notMsgContainerSpan" >{{ msg.message }}</span>
                 </div>
             </div>
         </div>
