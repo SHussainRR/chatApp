@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
     };
   }
   ngOnInit() {
-    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn)
+    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
 
     if (localStorage.getItem('nickname')) {
       this.router.navigate(['/roomlist']);

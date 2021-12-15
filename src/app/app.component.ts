@@ -28,7 +28,7 @@ export class AppComponent {
     this.isLoggedIn = isLoggedIn();
   }
   ngOnInit() {
-    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn)
+    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
   }
   
   ngOnDestroy() {
