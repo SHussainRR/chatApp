@@ -94,7 +94,7 @@ export class GrouproomComponent implements OnInit {
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} leave the room`;
+    chat.message = `${this.nickname} leaves the room`;
     chat.type = 'exit';
     firebase.database().ref('groupmessages/' + this.roomname).child("messages").push(chat);
 

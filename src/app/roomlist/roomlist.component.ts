@@ -184,7 +184,7 @@ export class RoomlistComponent implements OnInit {
     chat.roomname = roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} enter the room`;
+    chat.message = `${this.nickname} enters the room`;
     chat.type = 'join';
     const newMessage = firebase.database().ref('chats/').push();
     newMessage.set(chat);
@@ -222,7 +222,7 @@ export class RoomlistComponent implements OnInit {
       const groupchat = { roomname: '', nickname: '', message: '', date: '', type: '' };
       groupchat.nickname = this.nickname;
       groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-      groupchat.message = `${this.nickname} enter the room`;
+      groupchat.message = `${this.nickname} enters the room`;
       groupchat.type = 'join';
       const navigateRoom = (key) => {
         UserService.makeUserOnline(true);
@@ -259,7 +259,7 @@ export class RoomlistComponent implements OnInit {
     chat.roomname = roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} enter the room`;
+    chat.message = `${this.nickname} enters the room`;
     chat.type = 'join';
     const newMessage = firebase.database().ref('Onechats/').push();
     newMessage.set(chat);
