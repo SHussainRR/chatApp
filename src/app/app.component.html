@@ -9,26 +9,8 @@
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" >
-      <!-- <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
-      </li> -->
-
-
-
-
-
+     
       <li nz-submenu nzOpen  nzTitle="Conference Room" nzIcon="usergroup-add">
-        
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['/addroom']">Create Conference Room</a>
@@ -43,7 +25,6 @@
           </li>
         </ul>
       </li>
-    
 
     <li nz-submenu nzOpen nzTitle="Personal Room" nzIcon="user-add">
       <ul>
@@ -52,11 +33,11 @@
         </li>
       </ul>
     </li>
+
   </ul>
 
-
   </nz-sider>
-  <nz-layout>
+<nz-layout>
 
     <nz-header *ngIf="isLoggedIn">
       <div class="app-header">

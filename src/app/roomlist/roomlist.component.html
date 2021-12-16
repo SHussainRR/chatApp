@@ -11,41 +11,29 @@
     </h3>
   </div>
 
-  <div class="modal"
+  <!-- <div class="modal"
     style="background-color: rgb(255, 255, 255,0.9); margin: 8px 8px 8px 0px; padding: 8px; max-width: 92%"
     tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-
         <div class="modal-header row" style=" display: flex; justify-content: space-between;">
           <h4 style="margin-left: 50px; ">Group Chat</h4>
-
           <div style="float:right;" (click)="closePopup()">
             <mat-icon>close</mat-icon>
           </div>
         </div>
-
-
         <div class="modal-body" style="max-width: 50%;">
-
           <input type="text" [(ngModel)]="groupName" />
-
           <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
           </angular2-multiselect>
-
-          <!-- 
-    (onSelectAll)="onSelectAll($event)"
-    (onDeSelectAll)="onDeSelectAll($event)" -->
         </div>
-
         <div class="modal-footer" style="justify-content: right;">
           <button type="button" (click)="createGroupRoom()">Create Room </button>
           <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
         </div>
-
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <div class="row" style="display:flex;">
@@ -72,7 +60,7 @@
 
         <!-- Online Users -->
         <tr *ngIf="onlineUsers.length > 0">
-          <th>Online Users</th>
+          <th>Online Users ( {{onlineUsers.length}} )</th>
         </tr>
         <tr *ngFor="let user of onlineUsers">
           <td>
@@ -83,7 +71,7 @@
 
         <!-- Offline Users  -->
         <tr>
-          <th *ngIf="offlineUsers.length >0">Offline Users</th>
+          <th *ngIf="offlineUsers.length >0">Offline Users ( {{offlineUsers.length}} )</th>
         </tr>
         <tr *ngFor="let user of offlineUsers">
           <td>

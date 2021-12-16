@@ -102,7 +102,7 @@ export class OneChatroomComponent implements OnInit {
     });
   }
 
-  onFormSubmit(form: any) {
+  onFormSubmit = (form: any) => {
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
@@ -115,7 +115,7 @@ export class OneChatroomComponent implements OnInit {
     });
   }
 
-  exitChat() {
+  exitChat = () => {
     const chat = { roomname: '', nickname: '', message: '', date: '', type: '' };
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
