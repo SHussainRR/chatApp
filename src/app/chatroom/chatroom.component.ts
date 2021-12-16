@@ -51,7 +51,7 @@ export class ChatroomComponent implements OnInit {
     public datepipe: DatePipe) {
     this.nickname = localStorage.getItem('nickname');
     this.roomname = this.route.snapshot.params.roomname;
-    firebase.database().ref('chats/').on('value', resp => {
+    firebase.database().ref('chats/'+ this.roomname).on('value', resp => {
       this.chats = [];
       this.chats = snapshotToArray(resp);
       setTimeout(() => this.scrolltop = this.chatcontent.nativeElement.scrollHeight, 500);
@@ -75,7 +75,7 @@ export class ChatroomComponent implements OnInit {
     // chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.type = 'message';
     console.log(chat)
-    const newMessage = firebase.database().ref('chats/').push();
+    const newMessage = firebase.database().ref('chats/'+this.roomname).push();
     newMessage.set(chat);
     this.chatForm = this.formBuilder.group({
       'message': [null, Validators.required]
@@ -89,7 +89,7 @@ export class ChatroomComponent implements OnInit {
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.message = `${this.nickname} leaves the room`;
     chat.type = 'exit';
-    const newMessage = firebase.database().ref('chats/').push();
+    const newMessage = firebase.database().ref('chats/'+this.roomname).push();
     newMessage.set(chat);
 
     firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(this.roomname).on('value', (resp: any) => {

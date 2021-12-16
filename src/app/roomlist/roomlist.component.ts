@@ -186,7 +186,7 @@ export class RoomlistComponent implements OnInit {
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.message = `${this.nickname} enters the room`;
     chat.type = 'join';
-    const newMessage = firebase.database().ref('chats/').push();
+    const newMessage = firebase.database().ref('chats/'+roomname).push();
     newMessage.set(chat);
 
     firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(roomname).on('value', (resp: any) => {
