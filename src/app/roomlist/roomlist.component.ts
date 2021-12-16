@@ -4,8 +4,7 @@ import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
 import { GroupService } from 'src/services/group/group.service';
 import { UserService } from 'src/services/user/user.service';
-
-
+import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
@@ -31,10 +30,9 @@ interface SelectUser {
 @Component({
   selector: 'app-roomlist',
   templateUrl: './roomlist.component.html',
-  styleUrls: ['./roomlist.component.css']
+  styleUrls: ['./roomlist.component.css'],
 })
 export class RoomlistComponent implements OnInit {
-
   nickname = '';
   displayedColumns: string[] = ['roomname'];
   rooms = [];
@@ -43,23 +41,22 @@ export class RoomlistComponent implements OnInit {
   offlineUsers = [];
   allUsers: SelectUser[] = [];
   allAvaibUsers: SelectUser[] = [];
-  displayStyle = "none";
+  displayStyle = 'none';
   isLoadingResults = true;
   chatwith = '';
 
-
   groupref = firebase.database().ref('group/');
   selectedItems: SelectUser[] = [];
-  groupName: string = "";
+  groupName: string = '';
   groupList: Room[] = [];
 
   oneToOneRoom: Room = {
     members: [],
-    name: "",
+    name: '',
   };
   conferenceRoom: Room = {
     members: [],
-    name: "",
+    name: '',
   };
 
   // ng dropdown
@@ -67,17 +64,18 @@ export class RoomlistComponent implements OnInit {
   dropdownSettings = {};
   // ng dropdown
 
-
   constructor(private route: ActivatedRoute, private router: Router, public datepipe: DatePipe) {
     this.nickname = localStorage.getItem('nickname');
-    firebase.database().ref('rooms/').on('value', resp => {
-      this.rooms = [];
-      this.rooms = snapshotToArray(resp);
-      this.isLoadingResults = false;
-    });
+    firebase
+      .database()
+      .ref('rooms/')
+      .on('value', (resp) => {
+        this.rooms = [];
+        this.rooms = snapshotToArray(resp);
+        this.isLoadingResults = false;
+      });
 
     // firebase.database().ref('OnetoOne/UserOne/' ||'OnetoOne/UserTwo/' ).on('value', resp => {
-
 
     //   if(snapshotToArray(resp).includes('ali')){
     //     this.OnetoOne.push(snapshotToArray(resp));
@@ -86,16 +84,19 @@ export class RoomlistComponent implements OnInit {
     //   this.isLoadingResults = false;
     // });
 
-
-
-    firebase.database().ref('OnetoOne/').on('value', resp => {
-      this.OnetoOne = [];
-      this.OnetoOne = snapshotToArray(resp);
-      // console.log("Logg ===> ", this.OnetoOne);
-      this.OnetoOne = this.OnetoOne.filter(item => item.UserOne === this.nickname || item.UserTwo === this.nickname);
-      console.log("Logg ===> ", this.OnetoOne);
-      this.isLoadingResults = false;
-    });
+    firebase
+      .database()
+      .ref('OnetoOne/')
+      .on('value', (resp) => {
+        this.OnetoOne = [];
+        this.OnetoOne = snapshotToArray(resp);
+        // console.log("Logg ===> ", this.OnetoOne);
+        this.OnetoOne = this.OnetoOne.filter(
+          (item) => item.UserOne === this.nickname || item.UserTwo === this.nickname
+        );
+        console.log('Logg ===> ', this.OnetoOne);
+        this.isLoadingResults = false;
+      });
 
     // firebase.database().ref('users/').orderByChild('status').on('value', (resp2: any) => {
     //   const roomusers = snapshotToArray(resp2);
@@ -106,77 +107,70 @@ export class RoomlistComponent implements OnInit {
 
     this.fetchUsersList();
 
-
-
-
     this.fetchGroupList();
-
   }
 
-
-
-  fetchUsersList(){
-    UserService.getUsersList((onUsers,offUsers,alUsers)=>{
+  fetchUsersList() {
+    UserService.getUsersList((onUsers, offUsers, alUsers) => {
       this.onlineUsers = onUsers;
       this.offlineUsers = offUsers;
       this.allUsers = alUsers;
     });
-
-
-
   }
 
   fetchGroupList() {
     // firebase.database().ref('group/').on('value', (resp2: any) => {
     //    snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el);
     // });
-    GroupService.getGroupList((data)=>{
+    GroupService.getGroupList((data) => {
       this.groupList = data;
     });
   }
 
-
   // ngOnInit(): void {}
 
   ngOnInit() {
+    firebase
+      .database()
+      .ref('users/')
+      .orderByChild('nickname')
+      .on('value', (resp2: any) => {
+        const roomusers = snapshotToArray(resp2);
 
-    firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
-      const roomusers = snapshotToArray(resp2);
+        const newVar: SelectUser[] = roomusers
+          .filter((el) => el.nickname && el.nickname !== this.nickname)
+          .map((ru) => {
+            return { id: ru.key, itemName: ru.nickname };
+          });
+        console.log(newVar);
 
-      const newVar: SelectUser[] = roomusers.filter(el => el.nickname && el.nickname !== this.nickname).map(ru => {
-        return { "id": ru.key, "itemName": ru.nickname };
+        // this.allAvaibUsers = roomusers;
+        this.allAvaibUsers = newVar;
+        this.dropdownList = newVar;
       });
-      console.log(newVar);
-
-      // this.allAvaibUsers = roomusers;
-      this.allAvaibUsers = newVar;
-      this.dropdownList = newVar;
-    });
 
     this.dropdownSettings = {
       singleSelection: false,
-      text: "Select Users to Add in Group",
+      text: 'Select Users to Add in Group',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       enableSearchFilter: true,
-      classes: "myclass custom-class"
+      classes: 'myclass custom-class',
     };
   }
 
-
   createGroupRoom() {
     const group = {
-      members: [this.nickname, ...this.selectedItems.map(el => el.itemName)],
-      name: this.groupName
-    }
+      members: [this.nickname, ...this.selectedItems.map((el) => el.itemName)],
+      name: this.groupName,
+    };
 
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
     newRoom.set(group).then((response) => {
       this.selectedItems = [];
-      this.groupName = ""
+      this.groupName = '';
     });
-
   }
 
   enterChatRoom(roomname: string) {
@@ -184,115 +178,124 @@ export class RoomlistComponent implements OnInit {
     chat.roomname = roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} enters the room`;
+    chat.message = `${this.nickname} ` + MESSAGE_CONSTANTS.join_chat;
     chat.type = 'join';
-    const newMessage = firebase.database().ref('chats/'+roomname).push();
+    const newMessage = firebase
+      .database()
+      .ref('chats/' + roomname)
+      .push();
     newMessage.set(chat);
 
-    firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(roomname).on('value', (resp: any) => {
-      let roomuser = [];
-      roomuser = snapshotToArray(resp);
-      const user = roomuser.find(x => x.nickname === this.nickname);
+    firebase
+      .database()
+      .ref('roomusers/')
+      .orderByChild('roomname')
+      .equalTo(roomname)
+      .on('value', (resp: any) => {
+        let roomuser = [];
+        roomuser = snapshotToArray(resp);
+        const user = roomuser.find((x) => x.nickname === this.nickname);
 
-      if (!user) {
-        const newroomuser = { roomname: '', nickname: '', status: '' };
-        newroomuser.roomname = roomname;
-        newroomuser.nickname = this.nickname;
-        const newRoomUser = firebase.database().ref('roomusers/').push();
-        newRoomUser.set(newroomuser);
-      }
-      UserService.makeUserOnline(true);
-    });
+        if (!user) {
+          const newroomuser = { roomname: '', nickname: '', status: '' };
+          newroomuser.roomname = roomname;
+          newroomuser.nickname = this.nickname;
+          const newRoomUser = firebase.database().ref('roomusers/').push();
+          newRoomUser.set(newroomuser);
+        }
+        UserService.makeUserOnline(true);
+      });
 
     this.router.navigate(['/chatroom', roomname]);
-
   }
-
 
   openPopup() {
-    this.displayStyle = "block";
+    this.displayStyle = 'block';
   }
   closePopup() {
-    this.displayStyle = "none";
+    this.displayStyle = 'none';
   }
-
 
   enterGroupRoom(row) {
     const sendInitialMessage = (bool = false) => {
       const groupchat = { roomname: '', nickname: '', message: '', date: '', type: '' };
       groupchat.nickname = this.nickname;
       groupchat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-      groupchat.message = `${this.nickname} enters the room`;
+      groupchat.message = `${this.nickname} ${MESSAGE_CONSTANTS.join_chat}`;
       groupchat.type = 'join';
       const navigateRoom = (key) => {
         UserService.makeUserOnline(true);
         this.router.navigate(['/grouproom', key]);
-      }
+      };
 
       if (bool) {
-        const newMessage = firebase.database().ref('groupmessages/').push({ messages: [] })
+        const newMessage = firebase.database().ref('groupmessages/').push({ messages: [] });
         const groupref = firebase.database().ref('group/' + row.key);
         groupref.update({ chatKey: newMessage.key });
         newMessage.then(function (response) {
-          response.child("messages").push(groupchat)
+          response.child('messages').push(groupchat);
           //  console.log("newMsg.key",newMessage.key )
           navigateRoom(newMessage.key);
         });
       } else {
-        firebase.database().ref('groupmessages/' + row.chatKey).child("messages").push(groupchat)
+        firebase
+          .database()
+          .ref('groupmessages/' + row.chatKey)
+          .child('messages')
+          .push(groupchat);
         // console.log("Row.chatkey" , row.chatKey)
         navigateRoom(row.chatKey);
       }
-    }
+    };
     if (row.chatKey) {
       sendInitialMessage();
       this.router.navigate(['/grouproom', row.chatKey]);
     } else {
       sendInitialMessage(true);
-
     }
   }
-
 
   enterOnetoOneChatRoom(roomname: string) {
     const chat = { roomname: '', nickname: '', message: '', date: '', type: '' };
     chat.roomname = roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} enters the room`;
+    chat.message = `${this.nickname} ${MESSAGE_CONSTANTS.join_chat}`;
     chat.type = 'join';
-    const newMessage = firebase.database().ref('Onechats/').push();
+    console.log({chat});
+    const newMessage = firebase.database().ref('Onechats/'+chat.roomname).push();
     newMessage.set(chat);
 
-    firebase.database().ref('Oneroomusers/').orderByChild('roomname').equalTo(roomname).on('value', (resp: any) => {
-      let roomuser = [];
-      roomuser = snapshotToArray(resp);
+    firebase
+      .database()
+      .ref('Oneroomusers/')
+      .orderByChild('roomname')
+      .equalTo(roomname)
+      .on('value', (resp: any) => {
+        let roomuser = [];
+        roomuser = snapshotToArray(resp);
 
-
-      const user = roomuser.find(x => x.nickname === this.nickname);
-      if (user !== undefined) {
-        const userRef = firebase.database().ref('Oneroomusers/' + user.key);
-        // userRef.update({status: 'online'});
-      } else {
-        const newroomuser = { roomname: '', nickname: '', status: '' };
-        newroomuser.roomname = roomname;
-        newroomuser.nickname = this.nickname;
-        // newroomuser.status = 'online';
-        const newRoomUser = firebase.database().ref('Oneroomusers/').push();
-        newRoomUser.set(newroomuser);
-      }
-    });
+        const user = roomuser.find((x) => x.nickname === this.nickname);
+        if (user !== undefined) {
+          const userRef = firebase.database().ref('Oneroomusers/' + user.key);
+          // userRef.update({status: 'online'});
+        } else {
+          const newroomuser = { roomname: '', nickname: '', status: '' };
+          newroomuser.roomname = roomname;
+          newroomuser.nickname = this.nickname;
+          // newroomuser.status = 'online';
+          const newRoomUser = firebase.database().ref('Oneroomusers/').push();
+          newRoomUser.set(newroomuser);
+        }
+      });
 
     UserService.makeUserOnline(true);
     this.router.navigate(['/chatroomone', roomname]);
   }
-
-
 
   logout(): void {
     localStorage.removeItem('nickname');
     // localStorage.removeItem('userId');
     this.router.navigate(['/login']);
   }
-
 }

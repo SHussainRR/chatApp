@@ -47,7 +47,7 @@ export class ChatmessagesComponent implements OnInit {
   reset(){
     this.chatForm.reset();
   }
-
+ 
 }
 
 type MessageType = 'join' | 'message' | 'exit'; 

@@ -5,7 +5,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
 import { UserService } from 'src/services/user/user.service';
-
+import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
@@ -27,10 +27,9 @@ export const snapshotToArray = (snapshot: any) => {
 @Component({
   selector: 'app-grouproom',
   templateUrl: './grouproom.component.html',
-  styleUrls: ['./grouproom.component.css']
+  styleUrls: ['./grouproom.component.css'],
 })
 export class GrouproomComponent implements OnInit {
-
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   @ViewChild('chatcontent') chatcontent: ElementRef;
@@ -44,26 +43,30 @@ export class GrouproomComponent implements OnInit {
   chats = [];
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    public datepipe: DatePipe) {
+    public datepipe: DatePipe
+  ) {
     this.nickname = localStorage.getItem('nickname');
     this.roomname = this.route.snapshot.params.roomname;
-    this.chats = []
-    firebase.database().ref('groupmessages/' + this.roomname).on('value', resp => {
-      this.chats = [];
-      const data = snapshotToArray(resp);
-      console.log(data);
-      if (data?.length) {
-        for (let key of Object.keys(data[0])) {
-          if (data[0][key] && key !== 'key')
-            this.chats.push(data[0][key])
+    this.chats = [];
+    firebase
+      .database()
+      .ref('groupmessages/' + this.roomname)
+      .on('value', (resp) => {
+        this.chats = [];
+        const data = snapshotToArray(resp);
+        console.log(data);
+        if (data?.length) {
+          for (let key of Object.keys(data[0])) {
+            if (data[0][key] && key !== 'key') this.chats.push(data[0][key]);
+          }
         }
-      }
-      console.log(this.chats);
-      setTimeout(() => this.scrolltop = this.chatcontent.nativeElement.scrollHeight, 500);
-    });
+        console.log(this.chats);
+        setTimeout(() => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight), 500);
+      });
     // firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(this.roomname).on('value', (resp2: any) => {
     //   const roomusers = snapshotToArray(resp2);
     //   this.users = roomusers.filter(x => x.status === 'online');
@@ -72,31 +75,38 @@ export class GrouproomComponent implements OnInit {
 
   ngOnInit(): void {
     this.chatForm = this.formBuilder.group({
-      'message': [null, Validators.required]
+      message: [null, Validators.required],
     });
   }
 
-  onFormSubmit=(form: any)=> {
+  onFormSubmit = (form: any) => {
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.type = 'message';
-    firebase.database().ref('groupmessages/' + this.roomname).child("messages").push(chat)
+    firebase
+      .database()
+      .ref('groupmessages/' + this.roomname)
+      .child('messages')
+      .push(chat);
     this.chatForm = this.formBuilder.group({
-      'message': [null, Validators.required]
+      message: [null, Validators.required],
     });
-  }
+  };
 
-  exitChat=() => {
-
+  exitChat = () => {
     const chat = { roomname: '', nickname: '', message: '', date: '', type: '' };
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
-    chat.message = `${this.nickname} leaves the room`;
+    chat.message = `${this.nickname} ` + MESSAGE_CONSTANTS.exit_chat;
     chat.type = 'exit';
-    firebase.database().ref('groupmessages/' + this.roomname).child("messages").push(chat);
+    firebase
+      .database()
+      .ref('groupmessages/' + this.roomname)
+      .child('messages')
+      .push(chat);
 
     // firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(this.roomname).on('value', (resp: any) => {
     //   let roomuser = [];
@@ -110,12 +120,11 @@ export class GrouproomComponent implements OnInit {
 
     UserService.makeUserOnline(false);
     this.router.navigate(['/roomlist']);
-  }
+  };
 
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {}
   }
-
 }
