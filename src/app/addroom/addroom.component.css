@@ -1,10 +1,14 @@
 .container{
-  background-image: url('..\roomlist\roomWallpaper.jfif');
-  
+  /* background-image: url('..\roomlist\roomWallpaper.jfif');
   height: 900px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  background-color: lightgray;
+  height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 /* Structure */
 .example-container {

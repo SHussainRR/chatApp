@@ -1,10 +1,9 @@
 .container{
-    background-image: url('..\roomlist\roomWallpaper.jfif');
-    
-    height: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: rgb(192,192,192);
+  height: calc(100vh - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center; 
   }
   /* Structure */
   .example-container {
@@ -20,7 +19,8 @@
   }
   
   .createNewRoomForm {
-    background-color: rgb(255,255,255,0.7);
+    background-color: lightgray;
+    /* rgb(255,255,255,0.7) */
     padding: 16px;
     display: flex row;
     border-radius: 8px;
