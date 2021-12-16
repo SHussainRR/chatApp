@@ -5,42 +5,24 @@
 } */
 
 
+.example-container{
+height: calc(100vh - 80px);
+overflow-y: scroll;
 
-.example-container {
-  min-height: 1200px;
-  /* background-color: rgb(12, 12, 12,.5); */
-  /* padding: 16px; */
 }
 .NameClass{
   color: black;
   font-size: 16px;
 }
-
 .cWhite{
   color: white;
 }
 
 
 
-.matt-button{
-  border-radius: 12px; 
-  background-color: rgb(255, 255, 255,0.8);
-  padding: 24px;
-  color: black;
-  font-weight: 700;
-}
-
-.matt-button:hover{
-  border-radius: 18px;
-  background-color: rgb(255, 255, 255);
-
-}
-mat-icon{
-  color: black;
-}
 
 .heading{
-  color: black;
+  color: white;
   font-size: 32px;
   font-weight: 700;
   justify-content: center;
@@ -57,28 +39,20 @@ mat-icon{
   font-size: 16px;
 }
 
-/* .heading:hover{
-  color: whitesmoke;
-  font-size: 28px;
-  font-weight: 800;
-} */
 
 .roomDetails{
   border-radius: 16px;
-  background-color: rgb(255, 255, 255,0.9); 
+  /* background-color: rgb(255, 255, 255,0.9);  */
+  margin-bottom: 24px;
 }
-
-
-
-
 
 .example-table-container {
   position: relative;
-  max-height: 400px;
   overflow: auto;
 }
 
 table {
+  margin-left: 16px;
   width: 100%;
 }
 
@@ -89,36 +63,10 @@ table {
 .add-button{
   margin:  8px 16px;
 }
-.cardDesign{
-  background-color: rgba(247, 247, 247, 0.753);
-  min-width: 200px;
 
-}
-.cardHead{
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-}
 
-.roomCreation{
-  display: flex; 
-  justify-content: space-around;
-  align-content: center; 
-  margin: 30px;
-}
 
-.example-loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 56px;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .example-rate-limit-reached {
   color: #980000;
