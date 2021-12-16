@@ -5,7 +5,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DataService } from 'src/services/data.service';
 import { Subscription } from 'rxjs';
-import { snapshotToArray } from 'src/utils/functions';
+import { isLoggedIn, snapshotToArray } from 'src/utils/functions';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -69,9 +69,11 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() {
     this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-
-    if (localStorage.getItem('nickname')) {
+    if(isLoggedIn()){
+      this.data.emitLoginStatus(true);
       this.router.navigate(['/roomlist']);
+    }else {
+      this.data.emitLoginStatus(false);
     }
 
     this.loginForm = this.formBuilder.group({
