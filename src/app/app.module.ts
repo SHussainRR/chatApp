@@ -35,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import en from '@angular/common/locales/en';
-import { NzButtonModule, NzInputModule } from 'ng-zorro-antd';
+import { NzButtonModule, NzInputModule, NzModalModule } from 'ng-zorro-antd';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
 
@@ -78,6 +78,7 @@ registerLocaleData(en);
     NzLayoutModule,
     NzMenuModule,
     HttpClientModule,
+    NzModalModule,
   ],
   providers: [DatePipe, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

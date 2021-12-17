@@ -5,6 +5,7 @@ import { DataService } from 'src/services/data.service';
 import { ClientService } from 'src/utils/client';
 import { isLoggedIn } from 'src/utils/functions';
 
+
 const config = {
   apiKey: 'AIzaSyAiwJQPJ_XmcsK6ibRvYhRW_X8YnCvkDQg',
   databaseURL: 'https://angularchat-fff13-default-rtdb.firebaseio.com',
@@ -21,6 +22,7 @@ export class AppComponent {
   isCollapsed = false;
   isLoggedIn = false;
   subscription: Subscription;
+  isVisible: boolean = false;
 
   constructor(private data: DataService) {
     // firebase.initializeApp(config);
@@ -34,4 +36,19 @@ export class AppComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  showModal(): void {
+    this.isVisible = true;
+  }
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
 }
+
+// export function setVisibility ( hello?: boolean){
+//   if (this.isVisible != null){
+//     this.isVisible = false;
+//   } else this.isVisible = hello;
+
+//   return this.isVisible;    
+// }
