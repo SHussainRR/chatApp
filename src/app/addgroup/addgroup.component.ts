@@ -101,7 +101,7 @@ export class AddgroupComponent implements OnInit {
     newRoom.set(group).then((response)=>{
       this.selectedItems = [];
       this.groupName = "";
-      this.router.navigate(['/roomlist']);
+      this.gooBack();
     });  
 
   }
