@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -46,6 +46,8 @@ export class AddgroupComponent implements OnInit {
    selectedItems: SelectUser[] = [];
    // ng dropdown
   ref = firebase.database().ref('OnetoOne/');
+
+  @Input() showModal: (bool)=>{}; 
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -101,13 +103,12 @@ export class AddgroupComponent implements OnInit {
     newRoom.set(group).then((response)=>{
       this.selectedItems = [];
       this.groupName = "";
-      this.gooBack();
+      this.showModal(false);
+    }).catch(e=>{
+      
+      this.showModal(false);
     });  
 
-  }
-
-  gooBack(): void {
-    this.router.navigate(['/roomlist']);
   }
 
 }

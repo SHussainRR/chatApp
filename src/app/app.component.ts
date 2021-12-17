@@ -5,7 +5,6 @@ import { DataService } from 'src/services/data.service';
 import { ClientService } from 'src/utils/client';
 import { isLoggedIn } from 'src/utils/functions';
 
-
 const config = {
   apiKey: 'AIzaSyAiwJQPJ_XmcsK6ibRvYhRW_X8YnCvkDQg',
   databaseURL: 'https://angularchat-fff13-default-rtdb.firebaseio.com',
@@ -14,7 +13,7 @@ const config = {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  
+
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
@@ -30,18 +29,14 @@ export class AppComponent {
     this.isLoggedIn = isLoggedIn();
   }
   ngOnInit() {
-    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.subscription = this.data.loginInfo.subscribe((isLoggedIn) => (this.isLoggedIn = isLoggedIn));
   }
-  
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  showModal(): void {
-    this.isVisible = true;
-  }
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
+  showModal = (isVisible: boolean): void  => {
+    this.isVisible = isVisible;
   }
 }
 
@@ -50,5 +45,5 @@ export class AppComponent {
 //     this.isVisible = false;
 //   } else this.isVisible = hello;
 
-//   return this.isVisible;    
+//   return this.isVisible;
 // }

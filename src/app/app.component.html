@@ -37,7 +37,7 @@
     <li nz-submenu nzOpen nzTitle="MODAL" nzIcon="user-add">
       <ul>
         <li nz-menu-item nzMatchRouter>
-          <a  (click)="showModal()">Create MODAL</a>
+          <a  (click)="showModal(true)">Create MODAL</a>
         </li>
       </ul>
     </li>
@@ -64,7 +64,7 @@
 </nz-layout>
 
 
-<nz-modal  [(nzVisible)]="isVisible" nzTitle="Create Group Room" (nzOnCancel)="handleCancel()">
-  <app-addgroup></app-addgroup>
+<nz-modal  [(nzVisible)]="isVisible" nzTitle="Create Group Room" (nzOnCancel)="showModal(false)">
+  <app-addgroup [showModal]="showModal"></app-addgroup>
   <div *nzModalFooter></div>
 </nz-modal>
