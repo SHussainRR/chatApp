@@ -41,3 +41,7 @@
   justify-content: space-around;
   background-color: #001529;
 }
+
+.show-error {
+  border: 2px solid red;
+}

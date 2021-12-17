@@ -37,7 +37,7 @@ export class AddgroupComponent implements OnInit {
   nickname = '';
   groupName = '';
   groupList: Room[] = [];
-
+  error : string = '';
    // ng dropdown
    dropdownList = [];
    dropdownSettings = {};
@@ -47,7 +47,7 @@ export class AddgroupComponent implements OnInit {
    // ng dropdown
   ref = firebase.database().ref('OnetoOne/');
 
-  @Input() showModal: (bool)=>{}; 
+  @Input() showModal: (bool)=>{};
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -91,13 +91,22 @@ export class AddgroupComponent implements OnInit {
   }
 
   createGroupRoom(){
+    const groupMembers = this.selectedItems.map(el=>el.itemName);
+
+    if(!(groupMembers?.length)) {
+      this.error = 'Please Select Users to chat';
+      console.log(this.error);
+      return;
+    }
+    console.log('herreee');
+    this.error = '';
     const group = {
-      members: this.selectedItems.map(el=>el.itemName),
+      members: groupMembers,
       name: this.groupName
     }
     console.log(group);
     group.members.push(this.nickname);
-      
+
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
     newRoom.set(group).then((response)=>{
@@ -105,9 +114,9 @@ export class AddgroupComponent implements OnInit {
       this.groupName = "";
       this.showModal(false);
     }).catch(e=>{
-      
+
       this.showModal(false);
-    });  
+    });
 
   }
 
