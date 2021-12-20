@@ -45,3 +45,7 @@
 .show-error {
   border: 2px solid red;
 }
+
+.errorAlert{
+  color: red;
+}

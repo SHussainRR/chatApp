@@ -13,7 +13,7 @@
       <li nz-submenu nzOpen  nzTitle="Conference Room" nzIcon="usergroup-add">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/addroom']">Create Conference Room</a>
+            <a  (click)="showConferenceModal(true)">Create Conference Room</a>
           </li>
         </ul>
       </li>
@@ -21,7 +21,7 @@
       <li nz-submenu nzOpen nzTitle="Group Room" nzIcon="team">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/addgroup']" >Create Group Room</a>
+            <a (click)="showGroupModal(true)">Create Group Room</a>
           </li>
         </ul>
       </li>
@@ -34,13 +34,13 @@
       </ul>
     </li>
 
-    <li nz-submenu nzOpen nzTitle="MODAL" nzIcon="user-add">
+    <!-- <li nz-submenu nzOpen nzTitle="MODAL" nzIcon="user-add">
       <ul>
         <li nz-menu-item nzMatchRouter>
           <a  (click)="showGroupModal(true)">Create MODAL</a>
         </li>
       </ul>
-    </li>
+    </li> -->
 
   </ul>
 
@@ -57,7 +57,7 @@
     </nz-header>
     <nz-content>
       <div class="inner-content">
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="changeOfRoutes()"></router-outlet>
       </div>
     </nz-content>
   </nz-layout>
@@ -65,13 +65,16 @@
 
 
 <nz-modal [(nzVisible)]="GroupVisible" nzTitle="Create Group Room" (nzOnCancel)="showGroupModal(false)">
-  <app-addgroup [showGroupModal]="showGroupModal"></app-addgroup>
+  <app-addgroup [showGroupModal]="showGroupModal" [item]="nickname"></app-addgroup>
   <div *nzModalFooter></div>
 </nz-modal>
 
-
-
 <nz-modal [(nzVisible)]="OneVisible" nzTitle="Create Personal Room" (nzOnCancel)="showOneModal(false)">
-  <app-addone [showOneModal]="showOneModal"></app-addone>
+  <app-addone [showOneModal]="showOneModal" [item]="nickname"></app-addone>
+  <div *nzModalFooter></div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="conVisible" nzTitle="Create Personal Room" (nzOnCancel)="showConferenceModal(false)">
+  <app-addroom [showConferenceModal]="showConferenceModal" [item]="nickname"></app-addroom>
   <div *nzModalFooter></div>
 </nz-modal>

@@ -64,7 +64,7 @@ export class GrouproomComponent implements OnInit {
             if (data[0][key] && key !== 'key') this.chats.push(data[0][key]);
           }
         }
-        console.log(this.chats);
+        // console.log(this.chats);
         setTimeout(() => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight), 500);
       });
     // firebase.database().ref('roomusers/').orderByChild('roomname').equalTo(this.roomname).on('value', (resp2: any) => {

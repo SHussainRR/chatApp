@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { DataService } from 'src/services/data.service';
 import { ClientService } from 'src/utils/client';
 import { isLoggedIn } from 'src/utils/functions';
+import { AddgroupComponent } from './addgroup/addgroup.component';
 
 const config = {
   apiKey: 'AIzaSyAiwJQPJ_XmcsK6ibRvYhRW_X8YnCvkDQg',
@@ -13,7 +14,6 @@ const config = {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
@@ -22,7 +22,9 @@ export class AppComponent {
   isLoggedIn = false;
   subscription: Subscription;
   GroupVisible: boolean = false;
-  OneVisible : boolean= false;
+  OneVisible : boolean = false;
+  conVisible : boolean = false;
+  nickname : string = '';
 
   constructor(private data: DataService) {
     // firebase.initializeApp(config);
@@ -30,6 +32,7 @@ export class AppComponent {
     this.isLoggedIn = isLoggedIn();
   }
   ngOnInit() {
+    this.nickname=localStorage.getItem('nickname');
     this.subscription = this.data.loginInfo.subscribe((isLoggedIn) => (this.isLoggedIn = isLoggedIn));
   }
 
@@ -44,6 +47,11 @@ export class AppComponent {
     this.OneVisible = OneVisible;
   }
 
+  showConferenceModal = (conVisible : boolean): void => {
+    this.conVisible = conVisible;
+  }
 
-  
+  changeOfRoutes(){
+    this.nickname= localStorage.getItem('nickname');
+  }  
 }

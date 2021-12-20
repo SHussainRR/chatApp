@@ -18,6 +18,7 @@ export class NavigationBarComponent implements OnInit {
     UserService.makeUserOnline(false);
     localStorage.removeItem('nickname');
     localStorage.removeItem('userId');
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

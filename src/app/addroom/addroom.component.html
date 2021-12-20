@@ -1,6 +1,7 @@
-<div class="container">
 
-  <form class="createNewRoomForm" [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">
+
+  <form [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">
+    <h3 class="heading">User: {{ nickname }}</h3>
     <h2>Please enter new Room</h2> 
     <mat-form-field class="example-full-width">
       <mat-label>Room Name</mat-label>
@@ -9,17 +10,11 @@
         <span *ngIf="!roomForm.get('roomname').valid && roomForm.get('roomname').touched">Enter room name</span>
       </mat-error>
     </mat-form-field>
-    <div class="button-row">
-      <!-- <input type=button onClick=" location.href='/roomlist'" value='Back'> -->
-      <button type="button" class="innerPadd" onClick="location.href='/roomlist'" mat-fab color="primary">
-        <mat-icon>arrow_back</mat-icon>
+      
+      <button type="submit" class="createBtn"  [disabled]="!roomForm.valid" mat-fab color="primary">
+        Create Room
       </button>
-      <button type="submit" class="ml innerPadd" [disabled]="!roomForm.valid" mat-fab color="primary">
-        <mat-icon>save</mat-icon>
-      </button>
-    </div>
+    
 
   </form>
 
-
-</div>

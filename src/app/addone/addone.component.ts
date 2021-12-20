@@ -28,11 +28,16 @@ export class AddoneComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   @Input() showOneModal: (bool)=>{};
+  @Input() set item(item: string) {
+    this.nickname = item;
+    console.log(this.nickname, " FROM @Input");
+}
 
   constructor(private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar) {
+      
   }
 
   ngOnInit(): void {
@@ -63,7 +68,9 @@ export class AddoneComponent implements OnInit {
       this.findData((this.nickname + " " + this.UserTwo))
     ])
     if (roomExists.some(item => item)) {
-      this.snackBar.open('Your Room with this User already exists !! ');
+      this.snackBar.open('Your Room with this User already exists !! ', 'Dismiss', {
+        duration: 3000
+      });
     } else {
       const newRoom = firebase.database().ref('OnetoOne/').push();
       room.UserTwo = this.UserTwo;

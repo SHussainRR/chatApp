@@ -84,7 +84,7 @@ export class ChatroomComponent implements OnInit {
     chat.nickname = this.nickname;
     // chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.type = 'message';
-    console.log(chat);
+    // console.log(chat);
     const newMessage = firebase
       .database()
       .ref('chats/' + this.roomname)

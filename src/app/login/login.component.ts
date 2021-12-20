@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   subscription: Subscription;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) { 
+    localStorage.clear();
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -48,13 +50,13 @@ export class LoginComponent implements OnInit {
             return res({ usernameExists: false });
           }
         } else {
-          console.log("HERE", name)
+          // console.log("HERE", name)
           if (exists) {
-            console.log("EXISTS")
+            // console.log("EXISTS")
             return res({ usernameExists: true });
           } else {
 
-            console.log("NOT EXISTS")
+            // console.log("NOT EXISTS")
             return res(null)
           }
         }
@@ -129,7 +131,7 @@ export class LoginComponent implements OnInit {
       this.data.emitLoginStatus(true);
       const newUser = firebase.database().ref('users/').push();
       newUser.set({ nickname: login.nickname });
-      console.log({ login })
+      // console.log({ login })
       localStorage.setItem('nickname', login.nickname);
       localStorage.setItem('userId', newUser.key);
 

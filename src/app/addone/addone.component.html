@@ -1,20 +1,13 @@
 <div>
-
-
 <h3 class="heading"> User: {{nickname}}</h3>
-
   <div class="groupNameBox">
-    <h2 class="groupName">Chat with</h2>
+    <h2 class="groupName">Chat with:</h2>
     <input type="text" class="groupInput" placeholder="Enter NickName of user" [(ngModel)]='UserTwo' />
   </div>
 
   <form  [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">    
           <button class="createBtn"  type="submit">Create Room</button>
   </form>
-
-
-
-
 </div>
 
 

@@ -76,7 +76,6 @@ export class RoomlistComponent implements OnInit {
       });
 
     // firebase.database().ref('OnetoOne/UserOne/' ||'OnetoOne/UserTwo/' ).on('value', resp => {
-
     //   if(snapshotToArray(resp).includes('ali')){
     //     this.OnetoOne.push(snapshotToArray(resp));
     //   };
@@ -94,7 +93,7 @@ export class RoomlistComponent implements OnInit {
         this.OnetoOne = this.OnetoOne.filter(
           (item) => item.UserOne === this.nickname || item.UserTwo === this.nickname
         );
-        console.log('Logg ===> ', this.OnetoOne);
+        // console.log('Logg ===> ', this.OnetoOne);
         this.isLoadingResults = false;
       });
 
@@ -296,6 +295,9 @@ export class RoomlistComponent implements OnInit {
   logout(): void {
     localStorage.removeItem('nickname');
     // localStorage.removeItem('userId');
+    localStorage.removeItem('nickname');
+    localStorage.removeItem('userId');
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

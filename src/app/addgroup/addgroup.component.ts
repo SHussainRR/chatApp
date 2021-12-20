@@ -49,6 +49,21 @@ export class AddgroupComponent implements OnInit {
 
   @Input() showGroupModal: (bool)=>{};
 
+  @Input() set item(item: string) {
+    this.nickname = item;
+    if (item != null){
+      firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
+        const roomusers = snapshotToArray(resp2); 
+        const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
+          return { "id": ru.key, "itemName": ru.nickname };
+        });
+        // console.log(newVar);
+        // this.allAvaibUsers = newVar;
+        this.dropdownList = newVar;
+      });
+      console.log(this.nickname, " FROM @Input");
+    }
+  }
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
@@ -59,7 +74,6 @@ export class AddgroupComponent implements OnInit {
     this.roomForm = this.formBuilder.group({
       'roomname' : [null, Validators.required]
     });
-    this.nickname = localStorage.getItem('nickname');
 
     firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
       const roomusers = snapshotToArray(resp2);
@@ -67,7 +81,7 @@ export class AddgroupComponent implements OnInit {
       const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
         return { "id": ru.key, "itemName": ru.nickname };
       });
-      console.log(newVar);
+      console.log(this.nickname, " FROM ngOnInit");
       // this.allAvaibUsers = newVar;
       this.dropdownList = newVar;
     });
@@ -95,16 +109,16 @@ export class AddgroupComponent implements OnInit {
 
     if(!(groupMembers?.length)) {
       this.error = 'Please Select Users to chat';
-      console.log(this.error);
+      // console.log(this.error);
       return;
     }
-    console.log('herreee');
+    // console.log('herreee');
     this.error = '';
     const group = {
       members: groupMembers,
       name: this.groupName
     }
-    console.log(group);
+    // console.log(group);
     group.members.push(this.nickname);
 
     const newRoom = firebase.database().ref('group/').push();
@@ -114,10 +128,8 @@ export class AddgroupComponent implements OnInit {
       this.groupName = "";
       this.showGroupModal(false);
     }).catch(e=>{
-
       this.showGroupModal(false);
     });
-
   }
 
 }
