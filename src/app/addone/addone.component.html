@@ -1,21 +1,23 @@
-<div class="container">
+<div>
 
-  <div class="createNewRoomForm">
-<h2 style="text-align: center;"> Hello {{nickname}} !!</h2>
-  <div>
-    <h2>Chat with</h2>
-    <input type="text" class="inputField" placeholder="Enter NickName of user" [(ngModel)]='UserTwo' />
+
+<h3 class="heading"> User: {{nickname}}</h3>
+
+  <div class="groupNameBox">
+    <h2 class="groupName">Chat with</h2>
+    <input type="text" class="groupInput" placeholder="Enter NickName of user" [(ngModel)]='UserTwo' />
   </div>
 
   <form  [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">    
-      <div class="button-row">
-          <!-- <input type=button onClick=" location.href='/roomlist'" value='Back'> -->
-          <button type="button" class="innerPadd" onClick="location.href='/roomlist'"mat-fab color="primary"><mat-icon>arrow_back</mat-icon></button>
-          <button type="submit" class="ml innerPadd" mat-fab color="primary"><mat-icon>save</mat-icon></button>
-      </div>
+          <button class="createBtn"  type="submit">Create Room</button>
   </form>
 
 
-</div>
+
 
 </div>
+
+
+
+
+

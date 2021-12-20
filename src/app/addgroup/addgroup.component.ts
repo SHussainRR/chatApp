@@ -47,7 +47,7 @@ export class AddgroupComponent implements OnInit {
    // ng dropdown
   ref = firebase.database().ref('OnetoOne/');
 
-  @Input() showModal: (bool)=>{};
+  @Input() showGroupModal: (bool)=>{};
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -112,10 +112,10 @@ export class AddgroupComponent implements OnInit {
     newRoom.set(group).then((response)=>{
       this.selectedItems = [];
       this.groupName = "";
-      this.showModal(false);
+      this.showGroupModal(false);
     }).catch(e=>{
 
-      this.showModal(false);
+      this.showGroupModal(false);
     });
 
   }

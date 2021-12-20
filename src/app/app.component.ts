@@ -21,7 +21,8 @@ export class AppComponent {
   isCollapsed = false;
   isLoggedIn = false;
   subscription: Subscription;
-  isVisible: boolean = false;
+  GroupVisible: boolean = false;
+  OneVisible : boolean= false;
 
   constructor(private data: DataService) {
     // firebase.initializeApp(config);
@@ -35,15 +36,14 @@ export class AppComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  showModal = (isVisible: boolean): void  => {
-    this.isVisible = isVisible;
+  showGroupModal = (GroupVisible: boolean): void  => {
+    this.GroupVisible = GroupVisible;
   }
+
+  showOneModal = (OneVisible: boolean): void  => {
+    this.OneVisible = OneVisible;
+  }
+
+
+  
 }
-
-// export function setVisibility ( hello?: boolean){
-//   if (this.isVisible != null){
-//     this.isVisible = false;
-//   } else this.isVisible = hello;
-
-//   return this.isVisible;
-// }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -26,6 +26,8 @@ export class AddoneComponent implements OnInit {
 
   ref = firebase.database().ref('OnetoOne/');
   matcher = new MyErrorStateMatcher();
+
+  @Input() showOneModal: (bool)=>{};
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -68,8 +70,10 @@ export class AddoneComponent implements OnInit {
       room.UserOne = this.nickname;
       room.roomname = this.nickname + " " + this.UserTwo;
       // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-      newRoom.set(room);
+      newRoom.set(room).catch(e=> this.showOneModal(false));
       this.router.navigate(['/roomlist']);
+      this.UserTwo= "";
+      this.showOneModal(false);
     }
   }
 }

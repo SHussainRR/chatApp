@@ -1,57 +1,49 @@
-.container{
-  background-color: lightgray;
-  height: calc(100vh - 64px);
+.heading {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.groupNameBox {
   display: flex;
-  justify-content: center;
-  align-items: center; 
-  }
-  /* Structure */
-  .example-container {
-    
-    padding: 5px;
-  }
+  justify-content: space-between;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
 
+.groupName {
+  color: black;
+  font-size: 16px;
+}
 
-  .inputField{
-    background-color: transparent;
-    border-color: transparent;
-    font-size: 18px;
-  }
-  
-  .createNewRoomForm {
-    background-color: rgb(255,255,255,0.7);
-    padding: 16px;
-    display: flex row;
-    border-radius: 8px;
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-  
-  .example-full-width:nth-last-child(0) {
-    margin-bottom: 10px;
-  }
-  
-  .button-row {
-    margin: 10px 0;
-    display: flex;
-    justify-content: center;
-    
-  }
-  
-  .mat-flat-button {
-    margin: 5px;
-  }
-  
-  .ml{
-    margin-left: 32px;
-  }
-  
-  .innerPadd{
-    padding: 8px 16px;
-  }
-  
+.groupInput {
+  border-radius: 4px;
+  padding: 6px;
+  border-width: 1px;
+}
+
+.multiSelectBox {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: thin;
+  border-color: black;
+  margin: 4px 0px;
+}
+
+.createBtn {
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 24px;
+  padding: 10px 0px;
+  border-style: solid;
+  border-radius: 8px;
+  display: flex;
+  border: #001529;
+  justify-content: space-around;
+  background-color: #001529;
+  width: 100%;
+}
+
+.show-error {
+  border: 2px solid red;
+}

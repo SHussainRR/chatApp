@@ -29,7 +29,7 @@
     <li nz-submenu nzOpen nzTitle="Personal Room" nzIcon="user-add">
       <ul>
         <li nz-menu-item nzMatchRouter>
-          <a [routerLink]="['/addone']">Create Personal Room</a>
+          <a  (click)="showOneModal(true)">Create Personal Room</a>
         </li>
       </ul>
     </li>
@@ -37,7 +37,7 @@
     <li nz-submenu nzOpen nzTitle="MODAL" nzIcon="user-add">
       <ul>
         <li nz-menu-item nzMatchRouter>
-          <a  (click)="showModal(true)">Create MODAL</a>
+          <a  (click)="showGroupModal(true)">Create MODAL</a>
         </li>
       </ul>
     </li>
@@ -64,7 +64,14 @@
 </nz-layout>
 
 
-<nz-modal  [(nzVisible)]="isVisible" nzTitle="Create Group Room" (nzOnCancel)="showModal(false)">
-  <app-addgroup [showModal]="showModal"></app-addgroup>
+<nz-modal [(nzVisible)]="GroupVisible" nzTitle="Create Group Room" (nzOnCancel)="showGroupModal(false)">
+  <app-addgroup [showGroupModal]="showGroupModal"></app-addgroup>
+  <div *nzModalFooter></div>
+</nz-modal>
+
+
+
+<nz-modal [(nzVisible)]="OneVisible" nzTitle="Create Personal Room" (nzOnCancel)="showOneModal(false)">
+  <app-addone [showOneModal]="showOneModal"></app-addone>
   <div *nzModalFooter></div>
 </nz-modal>
