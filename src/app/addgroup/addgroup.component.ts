@@ -67,8 +67,7 @@ export class AddgroupComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private snackBar: MatSnackBar) {
-              }
+              private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({

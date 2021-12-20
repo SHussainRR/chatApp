@@ -14,10 +14,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-addone',
   templateUrl: './addone.component.html',
-  styleUrls: ['./addone.component.css']
+  styleUrls: ['./addone.component.css'],
 })
 export class AddoneComponent implements OnInit {
-
   roomForm: FormGroup;
   nickname = '';
   roomname = '';
@@ -27,22 +26,22 @@ export class AddoneComponent implements OnInit {
   ref = firebase.database().ref('OnetoOne/');
   matcher = new MyErrorStateMatcher();
 
-  @Input() showOneModal: (bool)=>{};
+  @Input() showOneModal: (bool) => {};
   @Input() set item(item: string) {
     this.nickname = item;
-    console.log(this.nickname, " FROM @Input");
-}
+    console.log(this.nickname, ' FROM @Input');
+  }
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar) {
-      
-  }
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({
-      'roomname': [null, Validators.required]
+      roomname: [null, Validators.required],
     });
     this.nickname = localStorage.getItem('nickname');
   }
@@ -52,35 +51,44 @@ export class AddoneComponent implements OnInit {
   }
   async findData(name): Promise<boolean> {
     return new Promise((res) => {
-      this.ref.orderByChild('roomname').equalTo(name).once('value', (snapshot: any) => {
-        if (snapshot.exists()) {
-          res(true);
-        } else {
-          res(false)
-        }
-      });
-    })
+      this.ref
+        .orderByChild('roomname')
+        .equalTo(name)
+        .once('value', (snapshot: any) => {
+          if (snapshot.exists()) {
+            res(true);
+          } else {
+            res(false);
+          }
+        });
+    });
   }
   async onFormSubmit(form: any) {
     const room = form;
     const roomExists: Boolean[] = await Promise.all([
-      this.findData((this.UserTwo + " " + this.nickname)),
-      this.findData((this.nickname + " " + this.UserTwo))
-    ])
-    if (roomExists.some(item => item)) {
+      this.findData(this.UserTwo + ' ' + this.nickname),
+      this.findData(this.nickname + ' ' + this.UserTwo),
+    ]);
+    if (roomExists.some((item) => item)) {
       this.snackBar.open('Your Room with this User already exists !! ', 'Dismiss', {
-        duration: 3000
+        duration: 3000,
       });
     } else {
-      const newRoom = firebase.database().ref('OnetoOne/').push();
-      room.UserTwo = this.UserTwo;
-      room.UserOne = this.nickname;
-      room.roomname = this.nickname + " " + this.UserTwo;
-      // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-      newRoom.set(room).catch(e=> this.showOneModal(false));
-      this.router.navigate(['/roomlist']);
-      this.UserTwo= "";
-      this.showOneModal(false);
+      if (this.UserTwo == this.nickname) {
+        this.snackBar.open('Please enter A valid User to chat !! ', 'Dismiss', {
+          duration: 3000,
+        });
+      } else {
+        const newRoom = firebase.database().ref('OnetoOne/').push();
+        room.UserTwo = this.UserTwo;
+        room.UserOne = this.nickname;
+        room.roomname = this.nickname + ' ' + this.UserTwo;
+        // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
+        newRoom.set(room).catch((e) => this.showOneModal(false));
+        this.router.navigate(['/roomlist']);
+        this.UserTwo = '';
+        this.showOneModal(false);
+      }
     }
   }
 }

@@ -1,24 +1,16 @@
 <div class="example-container" style="height: 100%">
-
-  <div style="background-color: #001529;">
+  <div style="background-color: #001529">
     <h1 class="heading centering">Chat Application</h1>
   </div>
-  <h3 class="NameClass centering">
-    User Nickname :&nbsp;{{nickname}}
-  </h3>
+  <h3 class="NameClass centering">User Nickname :&nbsp;{{ nickname }}</h3>
 
-
-  <div class="row" style="display:flex;">
-
-    <div class="col-4"
-      style="color: black;   margin-right: 24px; padding: 16px;">
-
+  <div class="row" style="display: flex">
+    <div class="col-4" style="color: black; margin-right: 24px; padding: 16px">
       <div *ngIf="offlineUsers.length == 0 && onlineUsers.length == 0">
-        No Users !!
+        <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" style="height: 160px; width: 160px" />
       </div>
 
-      <table style="width:100%">
-
+      <table style="width: 100%">
         <!-- all Users -->
         <!-- <tr *ngIf="allUsers.length > 0">
           <th>All Users</th>
@@ -30,91 +22,98 @@
         </tr> -->
         <!-- Online Users -->
         <tr *ngIf="onlineUsers.length > 0">
-          <th>Online Users ( {{onlineUsers.length}} )</th>
+          <th>Online Users ( {{ onlineUsers.length }} )</th>
         </tr>
         <tr *ngFor="let user of onlineUsers">
-          <td>
-            <mat-icon style="color:green;">perm_identity</mat-icon>
-            <span>{{user.nickname}}</span>
+          <td *ngIf="user.nickname != null">
+            <mat-icon style="color: green">perm_identity</mat-icon>
+            <span>{{ user.nickname }}</span>
           </td>
         </tr>
         <!-- Offline Users  -->
         <tr>
-          <th *ngIf="offlineUsers.length >0">Offline Users ( {{offlineUsers.length}} )</th>
+          <th *ngIf="offlineUsers.length > 0">Offline Users ( {{ offlineUsers.length }} )</th>
         </tr>
         <tr *ngFor="let user of offlineUsers">
-          <td>
-            <mat-icon style="color:red">perm_identity</mat-icon>
-            <span>{{user.nickname}} </span>
+          <td *ngIf="user.nickname != null">
+            <mat-icon style="color: red">perm_identity</mat-icon>
+            <span>{{ user.nickname }} </span>
           </td>
         </tr>
       </table>
     </div>
 
-    <div class="col-8" style="min-width: 70%;">
-      <div class="roomDetails" style="float: left; min-width: 100%;">
-        <table mat-table [dataSource]="rooms" class="example-table" matSort matSortActive="roomname" matSortDisableClear
-          matSortDirection="asc">
-
+    <div class="col-8" style="min-width: 70%">
+      <div class="roomDetails" style="float: left; min-width: 100%">
+        <table
+          mat-table
+          [dataSource]="rooms"
+          class="example-table"
+          matSort
+          matSortActive="roomname"
+          matSortDisableClear
+          matSortDirection="asc"
+        >
           <!-- Room Name Column -->
           <ng-container matColumnDef="roomname">
             <th mat-header-cell [routerLink]="['/addroom']" *matHeaderCellDef class="roomName">Room Name</th>
-            <td mat-cell class="roomName" *matCellDef="let row">{{row.roomname}}</td>
+            <td mat-cell class="roomName" *matCellDef="let row">{{ row.roomname }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterChatRoom(row.roomname)"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="enterChatRoom(row.roomname)"></tr>
         </table>
       </div>
     </div>
-
   </div>
 
-
-  <div  style="min-width: 63%; margin-top: 16px; ">
-    <div class="roomDetails" style="float: left; min-width: 93%;">
-      <table mat-table [dataSource]="OnetoOne" class="example-table" matSort matSortActive="roomname"
-        matSortDisableClear matSortDirection="asc">
-
+  <div style="min-width: 63%; margin-top: 16px">
+    <div class="roomDetails" style="float: left; min-width: 93%">
+      <table
+        mat-table
+        [dataSource]="OnetoOne"
+        class="example-table"
+        matSort
+        matSortActive="roomname"
+        matSortDisableClear
+        matSortDirection="asc"
+      >
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
-
-
-          <th mat-header-cell *matHeaderCellDef class="roomName"> Your One to One Rooms</th>
-          <td mat-cell class="roomName" *matCellDef="let row">{{row.roomname}}</td>
+          <th mat-header-cell *matHeaderCellDef class="roomName">Your One to One Rooms</th>
+          <td mat-cell class="roomName" *matCellDef="let row">{{ row.roomname }}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
-
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterOnetoOneChatRoom(row.roomname)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="enterOnetoOneChatRoom(row.roomname)"></tr>
       </table>
     </div>
   </div>
 
-  <div  style="min-width: 63%; margin-top: 16px">
-    <div class="roomDetails" style="float: left; min-width: 93%;">
-      <table mat-table [dataSource]="groupList" class="example-table" matSort matSortActive="roomname"
-        matSortDisableClear matSortDirection="asc">
-
+  <div style="min-width: 63%; margin-top: 16px">
+    <div class="roomDetails" style="float: left; min-width: 93%">
+      <table
+        mat-table
+        [dataSource]="groupList"
+        class="example-table"
+        matSort
+        matSortActive="roomname"
+        matSortDisableClear
+        matSortDirection="asc"
+      >
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
-
-
-          <th mat-header-cell *matHeaderCellDef class="roomName"> Your Group List</th>
-          <td mat-cell class="roomName" *matCellDef="let row">{{row.name || row.members.join(', ')}}</td>
+          <th mat-header-cell *matHeaderCellDef class="roomName">Your Group List</th>
+          <td mat-cell class="roomName" *matCellDef="let row">{{ row.name || row.members.join(', ') }}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
-
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="enterGroupRoom(row)"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="enterGroupRoom(row)"></tr>
       </table>
     </div>
   </div>
-
-
-
 </div>
