@@ -97,7 +97,7 @@ export class OneChatroomComponent implements OnInit {
   }
 
   onFormSubmit = (form: any) => {
-    console.log({a: this.chats});
+    console.log({ a: this.chats });
     const chat = form;
     chat.roomname = this.roomname;
     chat.nickname = this.nickname;

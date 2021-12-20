@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -23,7 +22,6 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { AddoneComponent } from './addone/addone.component';
 import { OneChatroomComponent } from './one-chatroom/one-chatroom.component';
-
 
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { AddgroupComponent } from './addgroup/addgroup.component';
@@ -81,6 +79,6 @@ registerLocaleData(en);
     NzModalModule,
   ],
   providers: [DatePipe, { provide: NZ_I18N, useValue: en_US }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

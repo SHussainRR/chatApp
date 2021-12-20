@@ -17,13 +17,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
   PageStatus = true;
   alreadyExist = false;
-  errorMessage = ""
+  errorMessage = '';
   isLoggedIn = false;
   loginForm: FormGroup;
   signupForm: FormGroup;
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   subscription: Subscription;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) {
     localStorage.clear();
   }
 
@@ -41,27 +40,29 @@ export class LoginComponent implements OnInit {
   }
   checkUserNameAvailable(name, login = false) {
     return new Promise((res) => {
-      this.ref.orderByChild('nickname').equalTo(name).once('value', snapshot => {
-        const exists = snapshot.exists();
-        if (login) {
-          if (exists) {
-            return res(null)
+      this.ref
+        .orderByChild('nickname')
+        .equalTo(name)
+        .once('value', (snapshot) => {
+          const exists = snapshot.exists();
+          if (login) {
+            if (exists) {
+              return res(null);
+            } else {
+              return res({ usernameExists: false });
+            }
           } else {
-            return res({ usernameExists: false });
+            // console.log("HERE", name)
+            if (exists) {
+              // console.log("EXISTS")
+              return res({ usernameExists: true });
+            } else {
+              // console.log("NOT EXISTS")
+              return res(null);
+            }
           }
-        } else {
-          // console.log("HERE", name)
-          if (exists) {
-            // console.log("EXISTS")
-            return res({ usernameExists: true });
-          } else {
-
-            // console.log("NOT EXISTS")
-            return res(null)
-          }
-        }
-      });
-    })
+        });
+    });
   }
 
   usernameValidator(login) {
@@ -70,11 +71,11 @@ export class LoginComponent implements OnInit {
     };
   }
   ngOnInit() {
-    this.subscription = this.data.loginInfo.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-    if(isLoggedIn()){
+    this.subscription = this.data.loginInfo.subscribe((isLoggedIn) => (this.isLoggedIn = isLoggedIn));
+    if (isLoggedIn()) {
       this.data.emitLoginStatus(true);
       this.router.navigate(['/roomlist']);
-    }else {
+    } else {
       this.data.emitLoginStatus(false);
     }
 
@@ -84,11 +85,10 @@ export class LoginComponent implements OnInit {
         {
           validators: [Validators.required],
           asyncValidators: [this.usernameValidator(true)],
-          updateOn: 'blur'
-        }
-      ]
+          updateOn: 'blur',
+        },
+      ],
     });
-
 
     this.signupForm = this.formBuilder.group({
       nickname: [
@@ -96,17 +96,15 @@ export class LoginComponent implements OnInit {
         {
           validators: [Validators.required],
           asyncValidators: [this.usernameValidator(false)],
-          updateOn: 'blur'
-        }
-      ]
+          updateOn: 'blur',
+        },
+      ],
     });
-
-
   }
   showError(text: string) {
     this.errorMessage = text;
-    Object.values(this.loginForm.controls).forEach(control => {
-      control.setErrors({})
+    Object.values(this.loginForm.controls).forEach((control) => {
+      control.setErrors({});
       control.markAsDirty();
       control.updateValueAndValidity({ onlySelf: true });
     });
@@ -116,11 +114,13 @@ export class LoginComponent implements OnInit {
       this.data.emitLoginStatus(true);
       const login = form;
       localStorage.setItem('nickname', login.nickname);
-      this.ref.orderByChild('nickname').equalTo(login.nickname).once('value', snapshot => {
-        const res = snapshotToArray(snapshot);
-        if (res?.length)
-          localStorage.setItem('userId', res[0].key);
-      });
+      this.ref
+        .orderByChild('nickname')
+        .equalTo(login.nickname)
+        .once('value', (snapshot) => {
+          const res = snapshotToArray(snapshot);
+          if (res?.length) localStorage.setItem('userId', res[0].key);
+        });
       this.router.navigate(['/roomlist']);
     }
   }
@@ -138,8 +138,4 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/roomlist']);
     }
   }
-
-
-
-
 }

@@ -22,9 +22,9 @@ export class AppComponent {
   isLoggedIn = false;
   subscription: Subscription;
   GroupVisible: boolean = false;
-  OneVisible : boolean = false;
-  conVisible : boolean = false;
-  nickname : string = '';
+  OneVisible: boolean = false;
+  conVisible: boolean = false;
+  nickname: string = '';
 
   constructor(private data: DataService) {
     // firebase.initializeApp(config);
@@ -32,26 +32,26 @@ export class AppComponent {
     this.isLoggedIn = isLoggedIn();
   }
   ngOnInit() {
-    this.nickname=localStorage.getItem('nickname');
+    this.nickname = localStorage.getItem('nickname');
     this.subscription = this.data.loginInfo.subscribe((isLoggedIn) => (this.isLoggedIn = isLoggedIn));
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  showGroupModal = (GroupVisible: boolean): void  => {
+  showGroupModal = (GroupVisible: boolean): void => {
     this.GroupVisible = GroupVisible;
-  }
+  };
 
-  showOneModal = (OneVisible: boolean): void  => {
+  showOneModal = (OneVisible: boolean): void => {
     this.OneVisible = OneVisible;
-  }
+  };
 
-  showConferenceModal = (conVisible : boolean): void => {
+  showConferenceModal = (conVisible: boolean): void => {
     this.conVisible = conVisible;
-  }
+  };
 
-  changeOfRoutes(){
-    this.nickname= localStorage.getItem('nickname');
-  }  
+  changeOfRoutes() {
+    this.nickname = localStorage.getItem('nickname');
+  }
 }

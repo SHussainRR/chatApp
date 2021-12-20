@@ -1,6 +1,5 @@
-
 .createNewRoomForm {
-  background-color: rgb(255,255,255,0.7);
+  background-color: rgb(255, 255, 255, 0.7);
   padding: 16px;
   border-radius: 8px;
   min-width: 150px;
@@ -24,18 +23,17 @@
   margin: 10px 0;
   display: flex;
   justify-content: center;
-  
 }
 
 .mat-flat-button {
   margin: 5px;
 }
 
-.ml{
+.ml {
   margin-left: 32px;
 }
 
-.innerPadd{
+.innerPadd {
   padding: 8px 16px;
 }
 

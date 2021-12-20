@@ -1,6 +1,7 @@
-import { Component, Input, OnInit,ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getUserId, MyErrorStateMatcher } from 'src/utils/functions';''
+import { getUserId, MyErrorStateMatcher } from 'src/utils/functions';
+('');
 
 interface Message {
   nickname: String;
@@ -13,7 +14,7 @@ interface Message {
 @Component({
   selector: 'app-chatmessages',
   templateUrl: './chatmessages.component.html',
-  styleUrls: ['./chatmessages.component.css']
+  styleUrls: ['./chatmessages.component.css'],
 })
 export class ChatmessagesComponent implements OnInit {
   // for scroll
@@ -26,32 +27,28 @@ export class ChatmessagesComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   matcher = new MyErrorStateMatcher();
 
-  message:String;
-  @Input() sendMessage:any;
+  message: String;
+  @Input() sendMessage: any;
   @Input() messageData: Messages = [];
-  @Input() leaveRoom:any; 
+  @Input() leaveRoom: any;
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.nickname = getUserId();
     this.chatForm = this.formBuilder.group({
-      'message': [null, Validators.required]
+      message: [null, Validators.required],
     });
   }
-  scrollToBottom():void {
+  scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
       this.reset();
-      
-    } catch (err) { }
+    } catch (err) {}
   }
-  reset(){
+  reset() {
     this.chatForm.reset();
   }
- 
 }
 
-type MessageType = 'join' | 'message' | 'exit'; 
-
-
+type MessageType = 'join' | 'message' | 'exit';
 
 type Messages = Message[];

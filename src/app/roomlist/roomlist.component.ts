@@ -261,8 +261,11 @@ export class RoomlistComponent implements OnInit {
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.message = `${this.nickname} ${MESSAGE_CONSTANTS.join_chat}`;
     chat.type = 'join';
-    console.log({chat});
-    const newMessage = firebase.database().ref('Onechats/'+chat.roomname).push();
+    console.log({ chat });
+    const newMessage = firebase
+      .database()
+      .ref('Onechats/' + chat.roomname)
+      .push();
     newMessage.set(chat);
 
     firebase

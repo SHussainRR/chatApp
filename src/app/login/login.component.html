@@ -1,8 +1,11 @@
-<div nz-row type="flex" style="justify-content: center; ">
+<div nz-row type="flex" style="justify-content: center">
   <div nz-col>
     <div style="display: 'inline-flex'; justify-content: 'center'; align-items: 'center'">
-
-      <form *ngIf="PageStatus==true" nz-form [formGroup]="loginForm" class="login-form"
+      <form
+        *ngIf="PageStatus == true"
+        nz-form
+        [formGroup]="loginForm"
+        class="login-form"
         (ngSubmit)="onFormSubmit(loginForm.value)">
         <nz-form-item>
           <h3>Signin</h3>
@@ -10,8 +13,13 @@
         <nz-form-item>
           <nz-form-control
             nzErrorTip="{{
-             loginForm.controls['nickname'].errors?.required || !loginForm.controls['nickname'].errors?.usernameExists ? 
-             (!loginForm.controls['nickname'].errors?.usernameExists ? 'Username not found!' : 'Please input your username!') : ''}}">
+              loginForm.controls['nickname'].errors?.required || !loginForm.controls['nickname'].errors?.usernameExists
+                ? !loginForm.controls['nickname'].errors?.usernameExists
+                  ? 'Username not found!'
+                  : 'Please input your username!'
+                : ''
+            }}"
+          >
             <nz-input-group nzPrefixIcon="user">
               <input type="text" nz-input formControlName="nickname" placeholder="Username" />
             </nz-input-group>
@@ -19,20 +27,29 @@
         </nz-form-item>
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
         Or
-        <a (click)="PageStatus=false;">register now!</a>
+        <a (click)="PageStatus = false">register now!</a>
       </form>
 
-
-      <form *ngIf="PageStatus==false" nz-form [formGroup]="signupForm" class="login-form"
-        (ngSubmit)="onSignUpFormSubmit(signupForm.value)">
+      <form
+        *ngIf="PageStatus == false"
+        nz-form
+        [formGroup]="signupForm"
+        class="login-form"
+        (ngSubmit)="onSignUpFormSubmit(signupForm.value)"
+      >
         <nz-form-item>
           <h3>Signup</h3>
         </nz-form-item>
         <nz-form-item>
           <nz-form-control
             nzErrorTip="{{
-            signupForm.controls['nickname'].errors?.required || signupForm.controls['nickname'].errors?.usernameExists ? 
-            (signupForm.controls['nickname'].errors?.usernameExists ? 'Username already Taken!' : 'Please input your username!') : ''}}">
+              signupForm.controls['nickname'].errors?.required || signupForm.controls['nickname'].errors?.usernameExists
+                ? signupForm.controls['nickname'].errors?.usernameExists
+                  ? 'Username already Taken!'
+                  : 'Please input your username!'
+                : ''
+            }}"
+          >
             <nz-input-group nzPrefixIcon="user">
               <input type="text" nz-input formControlName="nickname" placeholder="Username" />
             </nz-input-group>
@@ -40,10 +57,8 @@
         </nz-form-item>
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Signup</button>
         Or
-        <a (click)="PageStatus=true;">Login now!</a>
+        <a (click)="PageStatus = true">Login now!</a>
       </form>
-
     </div>
   </div>
-
 </div>
