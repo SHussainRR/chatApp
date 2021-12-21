@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RoomlistComponent } from './roomlist/roomlist.component';
@@ -36,6 +37,7 @@ import en from '@angular/common/locales/en';
 import { NzButtonModule, NzInputModule, NzModalModule } from 'ng-zorro-antd';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 registerLocaleData(en);
 
@@ -77,6 +79,7 @@ registerLocaleData(en);
     NzMenuModule,
     HttpClientModule,
     NzModalModule,
+    NgxUiLoaderModule,
   ],
   providers: [DatePipe, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],

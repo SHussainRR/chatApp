@@ -6,6 +6,7 @@ import { GroupService } from 'src/services/group/group.service';
 import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 import { snapshotToArray } from 'src/utils/functions';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 type User = string;
@@ -55,8 +56,10 @@ export class RoomlistComponent implements OnInit {
   dropdownSettings = {};
   // ng dropdown
 
-  constructor(private route: ActivatedRoute, private router: Router, public datepipe: DatePipe) {
+
+  constructor(private route: ActivatedRoute, private router: Router, public datepipe: DatePipe, private ngxLoader: NgxUiLoaderService) {
     this.nickname = localStorage.getItem('nickname');
+
     firebase
       .database()
       .ref('rooms/')
@@ -120,6 +123,8 @@ export class RoomlistComponent implements OnInit {
   // ngOnInit(): void {}
 
   ngOnInit() {
+
+    this.ngxLoader.start();
     firebase
       .database()
       .ref('users/')
@@ -132,12 +137,17 @@ export class RoomlistComponent implements OnInit {
           .map((ru) => {
             return { id: ru.key, itemName: ru.nickname };
           });
-        console.log(newVar);
 
+
+        this.ngxLoader.stop();
         // this.allAvaibUsers = roomusers;
         this.allAvaibUsers = newVar;
         this.dropdownList = newVar;
+
       });
+
+
+
 
     this.dropdownSettings = {
       singleSelection: false,
