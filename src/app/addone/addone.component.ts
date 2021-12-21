@@ -71,6 +71,7 @@ export class AddoneComponent implements OnInit {
       singleSelection: true,
       text: 'Select Users to Add in Group',
       classes: 'myclass custom-class',
+      enableSearchFilter: true,
     };
   }
 
@@ -120,7 +121,6 @@ export class AddoneComponent implements OnInit {
         // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
         newRoom.set(room).catch((e) => this.showOneModal(false));
         this.router.navigate(['/roomlist']);
-        this.UserTwo = '';
         this.showOneModal(false);
       }
     }
