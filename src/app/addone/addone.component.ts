@@ -4,8 +4,13 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
-import { MyErrorStateMatcher } from 'src/utils/functions';
+import { MyErrorStateMatcher, snapshotToArray } from 'src/utils/functions';
 
+type User = string;
+interface SelectUser {
+  itemName: User;
+  id: string;
+}
 
 @Component({
   selector: 'app-addone',
@@ -18,6 +23,11 @@ export class AddoneComponent implements OnInit {
   roomname = '';
   UserTwo = '';
   UserOne = '';
+  // ng dropdown
+  dropdownList = [];
+  dropdownSettings = {};
+  selectedItems: SelectUser[] = [];
+  allUsers: SelectUser[] = [];
 
   ref = firebase.database().ref('OnetoOne/');
   matcher = new MyErrorStateMatcher();
@@ -26,6 +36,22 @@ export class AddoneComponent implements OnInit {
   @Input() set item(item: string) {
     this.nickname = item;
     console.log(this.nickname, ' FROM @Input');
+
+    if (item != null) {
+      firebase
+        .database()
+        .ref('users/')
+        .orderByChild('nickname')
+        .on('value', (resp2: any) => {
+          const roomusers = snapshotToArray(resp2);
+          const newVar: SelectUser[] = roomusers
+            .filter((el) => el.nickname && el.nickname !== this.nickname)
+            .map((ru) => {
+              return { id: ru.key, itemName: ru.nickname };
+            });
+          this.dropdownList = newVar;
+        });
+    }
   }
 
   constructor(
@@ -40,6 +66,12 @@ export class AddoneComponent implements OnInit {
       roomname: [null, Validators.required],
     });
     this.nickname = localStorage.getItem('nickname');
+
+    this.dropdownSettings = {
+      singleSelection: true,
+      text: 'Select Users to Add in Group',
+      classes: 'myclass custom-class',
+    };
   }
 
   gooBack(): void {
@@ -60,6 +92,12 @@ export class AddoneComponent implements OnInit {
     });
   }
   async onFormSubmit(form: any) {
+    const { selectedItems } = this;
+    if (!(selectedItems?.length && selectedItems[0]?.itemName)) {
+      // required
+      return;
+    }
+    this.UserTwo = selectedItems[0].itemName;
     const room = form;
     const roomExists: Boolean[] = await Promise.all([
       this.findData(this.UserTwo + ' ' + this.nickname),
@@ -75,7 +113,6 @@ export class AddoneComponent implements OnInit {
           duration: 3000,
         });
       } else {
-
         const newRoom = firebase.database().ref('OnetoOne/').push();
         room.UserTwo = this.UserTwo;
         room.UserOne = this.nickname;
@@ -85,7 +122,6 @@ export class AddoneComponent implements OnInit {
         this.router.navigate(['/roomlist']);
         this.UserTwo = '';
         this.showOneModal(false);
-
       }
     }
   }
