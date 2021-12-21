@@ -6,12 +6,8 @@ import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
 import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { MyErrorStateMatcher } from 'src/utils/functions';
+
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];

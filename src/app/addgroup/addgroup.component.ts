@@ -4,6 +4,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
+import { snapshotToArray } from 'src/utils/functions';
 
 type User = string;
 interface SelectUser {
@@ -15,17 +16,6 @@ interface Room {
   name: string;
 }
 
-export const snapshotToArray = (snapshot: any) => {
-  const returnArr = [];
-
-  snapshot.forEach((childSnapshot: any) => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
-
-  return returnArr;
-};
 
 @Component({
   selector: 'app-addgroup',

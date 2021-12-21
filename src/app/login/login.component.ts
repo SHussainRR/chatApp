@@ -5,14 +5,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import * as firebase from 'firebase';
 import { DataService } from 'src/services/data.service';
 import { Subscription } from 'rxjs';
-import { isLoggedIn, snapshotToArray } from 'src/utils/functions';
+import { isLoggedIn, MyErrorStateMatcher, snapshotToArray } from 'src/utils/functions';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+
 
 @Component({
   selector: 'app-login',

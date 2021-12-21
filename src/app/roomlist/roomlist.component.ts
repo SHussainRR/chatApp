@@ -5,18 +5,9 @@ import { DatePipe } from '@angular/common';
 import { GroupService } from 'src/services/group/group.service';
 import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
+import { snapshotToArray } from 'src/utils/functions';
 
-export const snapshotToArray = (snapshot: any) => {
-  const returnArr = [];
 
-  snapshot.forEach((childSnapshot: any) => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
-
-  return returnArr;
-};
 type User = string;
 
 interface Room {

@@ -6,25 +6,11 @@ import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
 import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
+import { MyErrorStateMatcher, snapshotToArray } from 'src/utils/functions';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 
-export const snapshotToArray = (snapshot: any) => {
-  const returnArr = [];
 
-  snapshot.forEach((childSnapshot: any) => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
 
-  return returnArr;
-};
 
 @Component({
   selector: 'app-chatroom',

@@ -4,13 +4,9 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
+import { MyErrorStateMatcher } from 'src/utils/functions';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+
 @Component({
   selector: 'app-addone',
   templateUrl: './addone.component.html',
@@ -79,6 +75,7 @@ export class AddoneComponent implements OnInit {
           duration: 3000,
         });
       } else {
+
         const newRoom = firebase.database().ref('OnetoOne/').push();
         room.UserTwo = this.UserTwo;
         room.UserOne = this.nickname;
@@ -88,6 +85,7 @@ export class AddoneComponent implements OnInit {
         this.router.navigate(['/roomlist']);
         this.UserTwo = '';
         this.showOneModal(false);
+
       }
     }
   }

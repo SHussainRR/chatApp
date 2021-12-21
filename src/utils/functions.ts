@@ -3,6 +3,8 @@ import { ErrorStateMatcher } from "@angular/material/core";
 
 export const isLoggedIn = () => getUserId() && true;
 
+
+
 export const snapshotToArray = (snapshot: any) => {
     const returnArr = [];
   
