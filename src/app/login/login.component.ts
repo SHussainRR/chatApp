@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   subscription: Subscription;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private data: DataService) {
-    localStorage.clear();
+    // localStorage.clear();
   }
 
   ngOnDestroy() {
