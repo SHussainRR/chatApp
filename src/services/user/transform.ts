@@ -4,7 +4,7 @@ export const getUserData = (data) => {
     const roomUser = transformData(data);
     const onlineUsers = roomUser.filter(x => x.status === 'online');
     const offlineUsers = roomUser.filter(x => x.status !== 'online');
-    const allUsers = roomUser;  
+    const allUsers = roomUser;
 
     return [onlineUsers, offlineUsers, allUsers];
 }

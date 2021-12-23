@@ -13,13 +13,21 @@ export abstract class ClientService {
         this.initApp();
         return this.database;
     }
-    
+
     static initApp(){
         if(this.database === null) {
             this.database = firebase.initializeApp(config);
         }
     }
-
+    static child(ref:string, child:string, on:string, value:string, callback, opts = []){
+      let result = this.getDataBase().database().ref(ref);
+      if(opts?.length) {
+          opts.forEach(opt=>{
+              result = result[opt.key](opt.value);
+          })
+      }
+      return result.child(child)[on](value, callback)
+  }
     static get(ref:string, on:string, value:string, callback, opts = []){
         let result = this.getDataBase().database().ref(ref);
         if(opts?.length) {
@@ -38,10 +46,10 @@ export abstract class ClientService {
                 result = result[opt.key](opt.value);
             })
         }
-        
+
         return result.update(params);
     }
-    
+
     // static update ( ref: string, value: string){
     //     let result = this.getDataBase().database().ref(ref);
     //     return result(value)

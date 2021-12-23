@@ -8,6 +8,7 @@ import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 import { snapshotToArray } from 'src/utils/functions';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NotificationService } from 'src/services/notification/notification.service';
 
 type User = string;
 
@@ -90,9 +91,15 @@ export class RoomlistComponent implements OnInit {
         this.OnetoOne = snapshotToArray(resp);
         // console.log("Logg ===> ", this.OnetoOne);
         this.OnetoOne = this.OnetoOne.filter(
-          (item) => item.UserOne === this.nickname || item.UserTwo === this.nickname
+          (item) => item.roomname && (item.UserOne === this.nickname || item.UserTwo === this.nickname)
         );
-        // console.log('Logg ===> ', this.OnetoOne);
+
+        NotificationService.oneToOneRoom(
+          this.OnetoOne.map((el) => el.roomname),
+          this.nickname,
+          new Date(),
+          this.showNotification
+        );
         this.isLoadingResults = false;
       });
 
@@ -107,7 +114,11 @@ export class RoomlistComponent implements OnInit {
 
     this.fetchGroupList();
   }
-
+  showNotification = (data) => {
+    this.snackBar.open(data.message, 'Dismiss', {
+      duration: data.duration || 3000,
+    });
+  };
   fetchUsersList() {
     UserService.getUsersList((onUsers, offUsers, alUsers) => {
       this.onlineUsers = onUsers;
@@ -119,8 +130,6 @@ export class RoomlistComponent implements OnInit {
       //     duration: 3000,
       //   });
       // }
-
-
     });
   }
 
@@ -130,7 +139,22 @@ export class RoomlistComponent implements OnInit {
     // });
     GroupService.getGroupList((data) => {
       this.groupList = data;
+      console.log(this.groupList);
+
+
+      NotificationService.groupRoom(
+        this.groupList.map((el:any) => el.chatKey),
+        this.nickname,
+
+        new Date(),
+        this.showNotification
+      );
+
+
+
+
     });
+
   }
 
   // ngOnInit(): void {}

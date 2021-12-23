@@ -9,7 +9,7 @@ export abstract class UserService {
         const [onlineUsers, offlineUsers, allUsers] = getUserData(response);
         result(onlineUsers, offlineUsers, allUsers);
     };
-    
+
     ClientService.get(DATABASE_NAME.user, "on", "value", callback, [{
         key: 'orderByChild',
         value: 'status',
