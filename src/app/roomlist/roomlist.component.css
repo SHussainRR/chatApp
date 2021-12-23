@@ -4,43 +4,37 @@
   font-family: "Montserrat",sans-serif;
 } */
 
-
-.example-container{
-height: calc(100vh - 80px);
-overflow-y: scroll;
-
+.example-container {
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
 }
-.NameClass{
+.NameClass {
   color: black;
   font-size: 16px;
 }
-.cWhite{
+.cWhite {
   color: white;
 }
 
-
-
-
-.heading{
+.heading {
   color: white;
   font-size: 32px;
   font-weight: 700;
   justify-content: center;
 }
 
-.centering{
+.centering {
   display: flex;
   justify-content: space-around;
   align-content: center;
 }
 
-.roomName{
+.roomName {
   font-weight: 600;
   font-size: 16px;
 }
 
-
-.roomDetails{
+.roomDetails {
   border-radius: 16px;
   /* background-color: rgb(255, 255, 255,0.9);  */
   margin-bottom: 24px;
@@ -60,13 +54,9 @@ table {
   margin: 10px 0;
   display: flex;
 }
-.add-button{
-  margin:  8px 16px;
+.add-button {
+  margin: 8px 16px;
 }
-
-
-
-
 
 .example-rate-limit-reached {
   color: #980000;

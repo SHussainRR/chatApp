@@ -65,18 +65,32 @@
   </nz-layout>
 </nz-layout>
 
-<nz-modal *ngIf="GroupVisible" [(nzVisible)]="GroupVisible" nzTitle="Create Group Room" (nzOnCancel)="showGroupModal(false)">
+<nz-modal
+  *ngIf="GroupVisible"
+  [(nzVisible)]="GroupVisible"
+  nzTitle="Create Group Room"
+  (nzOnCancel)="showGroupModal(false)"
+>
   <app-addgroup [showGroupModal]="showGroupModal" [item]="nickname"></app-addgroup>
   <div *nzModalFooter></div>
 </nz-modal>
 
-  <nz-modal *ngIf="OneVisible" [(nzVisible)]="OneVisible" nzTitle="Create Personal Room" (nzOnCancel)="showOneModal(false)">
-    <app-addone [showOneModal]="showOneModal"></app-addone>
-    <div *nzModalFooter></div>
-  </nz-modal>
+<nz-modal
+  *ngIf="OneVisible"
+  [(nzVisible)]="OneVisible"
+  nzTitle="Create Personal Room"
+  (nzOnCancel)="showOneModal(false)"
+>
+  <app-addone [showOneModal]="showOneModal"></app-addone>
+  <div *nzModalFooter></div>
+</nz-modal>
 
-
-<nz-modal *ngIf="conVisible" [(nzVisible)]="conVisible" nzTitle="Create Personal Room" (nzOnCancel)="showConferenceModal(false)">
+<nz-modal
+  *ngIf="conVisible"
+  [(nzVisible)]="conVisible"
+  nzTitle="Create Conference Room"
+  (nzOnCancel)="showConferenceModal(false)"
+>
   <app-addroom [showConferenceModal]="showConferenceModal" [item]="nickname"></app-addroom>
   <div *nzModalFooter></div>
 </nz-modal>

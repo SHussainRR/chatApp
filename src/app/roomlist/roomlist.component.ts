@@ -7,7 +7,7 @@ import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 import { snapshotToArray } from 'src/utils/functions';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type User = string;
 
@@ -56,8 +56,13 @@ export class RoomlistComponent implements OnInit {
   dropdownSettings = {};
   // ng dropdown
 
-
-  constructor(private route: ActivatedRoute, private router: Router, public datepipe: DatePipe, private ngxLoader: NgxUiLoaderService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public datepipe: DatePipe,
+    private ngxLoader: NgxUiLoaderService,
+    private snackBar: MatSnackBar
+  ) {
     this.nickname = localStorage.getItem('nickname');
 
     firebase
@@ -108,6 +113,14 @@ export class RoomlistComponent implements OnInit {
       this.onlineUsers = onUsers;
       this.offlineUsers = offUsers;
       this.allUsers = alUsers;
+
+      // if (this.onlineUsers.length && this.onlineUsers[this.onlineUsers.length - 1].nickname != this.nickname  ) {
+      //   this.snackBar.open(this.onlineUsers[this.onlineUsers.length - 1].nickname + ' is Online ', 'Dismiss', {
+      //     duration: 3000,
+      //   });
+      // }
+
+
     });
   }
 
@@ -123,7 +136,6 @@ export class RoomlistComponent implements OnInit {
   // ngOnInit(): void {}
 
   ngOnInit() {
-
     this.ngxLoader.start();
     firebase
       .database()
@@ -138,16 +150,11 @@ export class RoomlistComponent implements OnInit {
             return { id: ru.key, itemName: ru.nickname };
           });
 
-
         this.ngxLoader.stop();
         // this.allAvaibUsers = roomusers;
         this.allAvaibUsers = newVar;
         this.dropdownList = newVar;
-
       });
-
-
-
 
     this.dropdownSettings = {
       singleSelection: false,
