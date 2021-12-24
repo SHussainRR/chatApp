@@ -1,6 +1,7 @@
 import * as moment from 'moment';
 import { ClientService } from 'src/utils/client';
 import { DATABASE_NAME } from 'src/utils/dbConstants';
+import { getUserId } from 'src/utils/functions';
 import { getOneToOneRoomData } from './transform';
 
 export abstract class NotificationService {
@@ -8,17 +9,21 @@ export abstract class NotificationService {
     const currentDate = moment(date);
     const callback = (data) => {
       const filteredData = getOneToOneRoomData(data);
-      if(filteredData.nickname !== nickname && filteredData.date, moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0) {
+      if (
+        filteredData.nickname !== nickname &&
+        filteredData.date &&
+        moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0
+      ) {
         let message = '';
-        if(filteredData.type === "message") {
-          message = `You got a new message in room ${filteredData.roomname}`
-        }else {
-          message = `${filteredData.message}`
+        if (filteredData.type === 'message') {
+          message = `You got a new message in room ${filteredData.roomname}`;
+        } else {
+          message = `${filteredData.message}`;
         }
         result({
           message,
-          type: 'info'
-        })
+          type: 'info',
+        });
       }
     };
     //Onechats/{roomname}
@@ -28,39 +33,41 @@ export abstract class NotificationService {
     });
   }
 
-
-
   static groupRoom(chatKeys: string[], nickname, date, result) {
+    console.log("GROUP ROOM START")
     const currentDate = moment(date);
     const callback = (data) => {
-      // const filteredData = getOneToOneRoomData(data);
-      // if(filteredData.nickname !== nickname && filteredData.date, moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0) {
-      //   let message = '';
-      //   if(filteredData.type === "message") {
-      //     message = `You got a new message in room ${filteredData.roomname}`
-      //   }else {
-      //     message = `${filteredData.message}`
-      //   }
-      //   result({
-      //     message,
-      //     type: 'info'
-      //   })
-      // }
-
-
+      console.log("GROUP")
       const filteredData = getOneToOneRoomData(data);
-
-
-      // console.log("Asim was here " , getOneToOneRoomData(data))
+      console.log(filteredData);
+      console.log(nickname);
+      
+      if (
+        filteredData.nickname !== nickname &&
+        filteredData.date &&
+        moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0
+      ) {
+        console.log("INSIDE HERE")
+        let message = '';
+        if (filteredData.type === 'message') {
+          message = `You got a new message in room ${filteredData.roomname}`;
+        } else {
+          message = `${filteredData.message}`;
+        }
+        result({
+          message,
+          type: 'info',
+        });
+      }
     };
-
-
+    console.log("CHATKEYs",chatKeys)
     chatKeys.forEach((chatKey) => {
-      ClientService.child('groupmessages', chatKey, 'on', 'child_added', callback);
+      ClientService.child('groupmessages', `${chatKey}/messages`, 'on', 'child_added', callback);
+
+      //off on listening in roomlist NG DESTROY 
+      
+
+
     });
   }
-
-
-
-
 }
