@@ -50,7 +50,8 @@ export abstract class NotificationService {
         console.log("INSIDE HERE")
         let message = '';
         if (filteredData.type === 'message') {
-          message = `You got a new message in room ${filteredData.roomname}`;
+          message = `You got a new message from "${filteredData.nickname}" in your group room.`;
+          console.log( filteredData);
         } else {
           message = `${filteredData.message}`;
         }
