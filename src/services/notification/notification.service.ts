@@ -45,7 +45,7 @@ export abstract class NotificationService {
       if (
         filteredData.nickname !== nickname &&
         filteredData.date &&
-        moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0
+        (moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0)
       ) {
         console.log("INSIDE HERE")
         let message = '';
@@ -61,7 +61,7 @@ export abstract class NotificationService {
         });
       }
     };
-    console.log("CHATKEYs",chatKeys)
+    // console.log("CHATKEYs",chatKeys);
     chatKeys.forEach((chatKey) => {
       ClientService.child('groupmessages', `${chatKey}/messages`, 'on', 'child_added', callback);
 
