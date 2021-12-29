@@ -9,6 +9,7 @@ import { snapshotToArray } from 'src/utils/functions';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NotificationService } from 'src/services/notification/notification.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 type User = string;
 
@@ -62,7 +63,8 @@ export class RoomlistComponent implements OnInit {
     private router: Router,
     public datepipe: DatePipe,
     private ngxLoader: NgxUiLoaderService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private notification: NzNotificationService,
   ) {
     this.nickname = localStorage.getItem('nickname');
 
@@ -118,6 +120,13 @@ export class RoomlistComponent implements OnInit {
     this.snackBar.open(data.message, 'Dismiss', {
       duration: data.duration || 3000,
     });
+    console.log("CHECK 2 Notifications",data.message);
+
+      // this.notification.create(
+      //   "info",
+      //   'Notification Alert',
+      //   data.message
+      // );
   };
   fetchUsersList() {
     UserService.getUsersList((onUsers, offUsers, alUsers) => {
@@ -135,8 +144,7 @@ export class RoomlistComponent implements OnInit {
 
   fetchGroupList() {
     // firebase.database().ref('group/').on('value', (resp2: any) => {
-    //    snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el);
-    // });
+    //    snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el); });
     GroupService.getGroupList((data) => {
       this.groupList = data;
       console.log(this.groupList);
@@ -149,12 +157,7 @@ export class RoomlistComponent implements OnInit {
         new Date(),
         this.showNotification
       );
-
-
-
-
     });
-
   }
 
   // ngOnInit(): void {}

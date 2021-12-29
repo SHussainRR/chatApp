@@ -37,7 +37,8 @@ import en from '@angular/common/locales/en';
 import { NzButtonModule, NzInputModule, NzModalModule } from 'ng-zorro-antd';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
-import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 registerLocaleData(en);
 
@@ -56,6 +57,7 @@ registerLocaleData(en);
     ChatmessagesComponent,
   ],
   imports: [
+    NzNotificationModule,
     NzInputModule,
     NzButtonModule,
     NzFormModule,
