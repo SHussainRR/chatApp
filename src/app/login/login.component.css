@@ -1,19 +1,19 @@
 .login-form {
-    width: 600px;
-    border: 2px solid grey;
-    padding: 38px;
-    background: rgb(224, 224, 224,0.7);
-  }
-  
-  .login-form-margin {
-    margin-bottom: 16px;
-  }
+  width: 600px;
+  border: 2px solid grey;
+  padding: 38px;
+  background: rgb(224, 224, 224, 0.7);
+}
 
-  .login-form-forgot {
-    float: right;
-  }
+.login-form-margin {
+  margin-bottom: 16px;
+}
 
-  .login-form-button {
-    width: 100%;
-    /* border-radius: 8px; */
-  }
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+  /* border-radius: 8px; */
+}

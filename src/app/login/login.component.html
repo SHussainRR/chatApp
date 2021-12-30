@@ -6,7 +6,8 @@
         nz-form
         [formGroup]="loginForm"
         class="login-form"
-        (ngSubmit)="onFormSubmit(loginForm.value)">
+        (ngSubmit)="onFormSubmit(loginForm.value)"
+      >
         <nz-form-item>
           <h3>Login</h3>
         </nz-form-item>
@@ -59,7 +60,6 @@
         Or
         <a (click)="PageStatus = true">Login now!</a>
       </form>
-      
     </div>
   </div>
 </div>

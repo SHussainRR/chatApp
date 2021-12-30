@@ -9,7 +9,6 @@
     <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings">
     </angular2-multiselect>
   </div>
-  
 
   <form [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">
     <button class="createBtn" type="submit">Create Room</button>

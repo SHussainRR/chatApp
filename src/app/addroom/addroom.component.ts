@@ -6,8 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as firebase from 'firebase';
 import { MyErrorStateMatcher } from 'src/utils/functions';
 
-
-
 @Component({
   selector: 'app-addroom',
   templateUrl: './addroom.component.html',

@@ -37,21 +37,21 @@ export abstract class NotificationService {
     console.log("GROUP ROOM START")
     const currentDate = moment(date);
     const callback = (data) => {
-      console.log("GROUP")
+      // console.log("GROUP")
       const filteredData = getOneToOneRoomData(data);
-      console.log(filteredData);
-      console.log(nickname);
+      // console.log(filteredData);
+      // console.log(nickname);
       
       if (
         filteredData.nickname !== nickname &&
         filteredData.date &&
         (moment(filteredData.date, 'DD/MM/YYYY hh:mm:ss').diff(currentDate, 'seconds') >= 0)
       ) {
-        console.log("INSIDE HERE")
+        // console.log("INSIDE HERE")
         let message = '';
         if (filteredData.type === 'message') {
           message = `You got a new message from "${filteredData.nickname}" in your group room.`;
-          console.log( filteredData);
+          // console.log( filteredData);
         } else {
           message = `${filteredData.message}`;
         }
@@ -66,7 +66,6 @@ export abstract class NotificationService {
       ClientService.child('groupmessages', `${chatKey}/messages`, 'on', 'child_added', callback);
 
       //off on listening in roomlist NG DESTROY 
-      
 
 
     });

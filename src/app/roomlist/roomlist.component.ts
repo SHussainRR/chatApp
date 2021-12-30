@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { DatePipe } from '@angular/common';
@@ -26,7 +26,7 @@ interface SelectUser {
   templateUrl: './roomlist.component.html',
   styleUrls: ['./roomlist.component.css'],
 })
-export class RoomlistComponent implements OnInit {
+export class RoomlistComponent implements OnInit, OnDestroy {
   nickname = '';
   displayedColumns: string[] = ['roomname'];
   rooms = [];
@@ -38,7 +38,7 @@ export class RoomlistComponent implements OnInit {
   displayStyle = 'none';
   isLoadingResults = true;
   chatwith = '';
-
+  currentlyShow: boolean = true;
   groupref = firebase.database().ref('group/');
   selectedItems: SelectUser[] = [];
   groupName: string = '';
@@ -64,7 +64,7 @@ export class RoomlistComponent implements OnInit {
     public datepipe: DatePipe,
     private ngxLoader: NgxUiLoaderService,
     private snackBar: MatSnackBar,
-    private notification: NzNotificationService,
+    private notification: NzNotificationService
   ) {
     this.nickname = localStorage.getItem('nickname');
 
@@ -96,12 +96,14 @@ export class RoomlistComponent implements OnInit {
           (item) => item.roomname && (item.UserOne === this.nickname || item.UserTwo === this.nickname)
         );
 
-        NotificationService.oneToOneRoom(
-          this.OnetoOne.map((el) => el.roomname),
-          this.nickname,
-          new Date(),
-          this.showNotification
-        );
+        if (this.currentlyShow) {
+          NotificationService.oneToOneRoom(
+            this.OnetoOne.map((el) => el.roomname),
+            this.nickname,
+            new Date(),
+            this.showNotification
+          );
+        }
         this.isLoadingResults = false;
       });
 
@@ -117,53 +119,50 @@ export class RoomlistComponent implements OnInit {
     this.fetchGroupList();
   }
   showNotification = (data) => {
-    this.snackBar.open(data.message, 'Dismiss', {
-      duration: data.duration || 3000,
-    });
-    console.log("CHECK 2 Notifications",data.message);
+    if (this.currentlyShow) {
+      // this.snackBar.open(data.message, 'Dismiss', {
+      //   duration: data.duration || 3000,
+      // });
 
-      // this.notification.create(
-      //   "info",
-      //   'Notification Alert',
-      //   data.message
-      // );
+      this.notification.create('info', 'Notification Alert', data.message);
+    }
   };
   fetchUsersList() {
     UserService.getUsersList((onUsers, offUsers, alUsers) => {
       this.onlineUsers = onUsers;
       this.offlineUsers = offUsers;
       this.allUsers = alUsers;
-
       // if (this.onlineUsers.length && this.onlineUsers[this.onlineUsers.length - 1].nickname != this.nickname  ) {
       //   this.snackBar.open(this.onlineUsers[this.onlineUsers.length - 1].nickname + ' is Online ', 'Dismiss', {
-      //     duration: 3000,
-      //   });
-      // }
+      //     duration: 3000, }); }
     });
   }
 
   fetchGroupList() {
-    // firebase.database().ref('group/').on('value', (resp2: any) => {
-    //    snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el => el); });
-    GroupService.getGroupList((data) => {
-      this.groupList = data;
-      console.log(this.groupList);
+    if (this.currentlyShow) {
+      GroupService.getGroupList((data) => {
+        this.groupList = data;
+        console.log(this.groupList);
 
+        NotificationService.groupRoom(
+          this.groupList.map((el: any) => el.chatKey),
+          this.nickname,
 
-      NotificationService.groupRoom(
-        this.groupList.map((el:any) => el.chatKey),
-        this.nickname,
-
-        new Date(),
-        this.showNotification
-      );
-    });
+          new Date(),
+          this.showNotification
+        );
+        console.log('Show NOTIFICATION GroupRoom ');
+      });
+    }
   }
 
-  // ngOnInit(): void {}
+  ngOnDestroy() {
+    this.currentlyShow = false;
+  }
 
   ngOnInit() {
     this.ngxLoader.start();
+    this.currentlyShow = true;
     firebase
       .database()
       .ref('users/')

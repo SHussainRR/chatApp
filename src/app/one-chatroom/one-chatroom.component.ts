@@ -8,9 +8,6 @@ import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 import { MyErrorStateMatcher, snapshotToArray } from 'src/utils/functions';
 
-
-
-
 @Component({
   selector: 'app-one-chatroom',
   templateUrl: './one-chatroom.component.html',

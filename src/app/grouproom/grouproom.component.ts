@@ -8,7 +8,6 @@ import { UserService } from 'src/services/user/user.service';
 import MESSAGE_CONSTANTS from 'src/utils/messageConstants';
 import { MyErrorStateMatcher } from 'src/utils/functions';
 
-
 export const snapshotToArray = (snapshot: any) => {
   const returnArr = [];
 

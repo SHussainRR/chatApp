@@ -8,7 +8,7 @@ import { snapshotToArray } from 'src/utils/functions';
 
 type User = string;
 interface SelectUser {
-  itemName:User;
+  itemName: User;
   id: string;
 }
 interface Room {
@@ -16,87 +16,104 @@ interface Room {
   name: string;
 }
 
-
 @Component({
   selector: 'app-addgroup',
   templateUrl: './addgroup.component.html',
-  styleUrls: ['./addgroup.component.css']
+  styleUrls: ['./addgroup.component.css'],
 })
 export class AddgroupComponent implements OnInit {
   roomForm: FormGroup;
   nickname = '';
   groupName = '';
   groupList: Room[] = [];
-  error : string = '';
-   // ng dropdown
-   dropdownList = [];
-   dropdownSettings = {};
+  error: string = '';
+  // ng dropdown
+  dropdownList = [];
+  dropdownSettings = {};
   //  allAvaibUsers:SelectUser[] = [];
-   allUsers:SelectUser[] = [];
-   selectedItems: SelectUser[] = [];
-   // ng dropdown
+  allUsers: SelectUser[] = [];
+  selectedItems: SelectUser[] = [];
+  // ng dropdown
   ref = firebase.database().ref('OnetoOne/');
 
-  @Input() showGroupModal: (bool)=>{};
+  @Input() showGroupModal: (bool) => {};
 
   @Input() set item(item: string) {
     this.nickname = item;
-    if (item != null){
-      firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
-        const roomusers = snapshotToArray(resp2); 
-        const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
-          return { "id": ru.key, "itemName": ru.nickname };
+    if (item != null) {
+      firebase
+        .database()
+        .ref('users/')
+        .orderByChild('nickname')
+        .on('value', (resp2: any) => {
+          const roomusers = snapshotToArray(resp2);
+          const newVar: SelectUser[] = roomusers
+            .filter((el) => el.nickname && el.nickname !== this.nickname)
+            .map((ru) => {
+              return { id: ru.key, itemName: ru.nickname };
+            });
+          // console.log(newVar);
+          // this.allAvaibUsers = newVar;
+          this.dropdownList = newVar;
         });
-        // console.log(newVar);
-        // this.allAvaibUsers = newVar;
-        this.dropdownList = newVar;
-      });
-      console.log(this.nickname, " FROM @Input");
+      console.log(this.nickname, ' FROM @Input');
     }
   }
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private formBuilder: FormBuilder,
-              private snackBar: MatSnackBar) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.roomForm = this.formBuilder.group({
-      'roomname' : [null, Validators.required]
+      roomname: [null, Validators.required],
     });
 
-    firebase.database().ref('users/').orderByChild('nickname').on('value', (resp2: any) => {
-      const roomusers = snapshotToArray(resp2);
+    firebase
+      .database()
+      .ref('users/')
+      .orderByChild('nickname')
+      .on('value', (resp2: any) => {
+        const roomusers = snapshotToArray(resp2);
 
-      const newVar:SelectUser[] = roomusers.filter(el=> el.nickname && el.nickname !== this.nickname).map(ru => {
-        return { "id": ru.key, "itemName": ru.nickname };
+        const newVar: SelectUser[] = roomusers
+          .filter((el) => el.nickname && el.nickname !== this.nickname)
+          .map((ru) => {
+            return { id: ru.key, itemName: ru.nickname };
+          });
+        console.log(this.nickname, ' FROM ngOnInit');
+        // this.allAvaibUsers = newVar;
+        this.dropdownList = newVar;
       });
-      console.log(this.nickname, " FROM ngOnInit");
-      // this.allAvaibUsers = newVar;
-      this.dropdownList = newVar;
-    });
     this.fetchGroupList();
 
     this.dropdownSettings = {
       singleSelection: false,
-      text: "Select Users to Add in Group",
+      text: 'Select Users to Add in Group',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       enableSearchFilter: true,
-      classes: "myclass custom-class"
+      classes: 'myclass custom-class',
     };
   }
 
-
   fetchGroupList() {
-    firebase.database().ref('group/').on('value', (resp2: any) => {
-      this.groupList = snapshotToArray(resp2).filter(el => el?.members?.includes(this.nickname)).filter(el=>el);
-    });
+    firebase
+      .database()
+      .ref('group/')
+      .on('value', (resp2: any) => {
+        this.groupList = snapshotToArray(resp2)
+          .filter((el) => el?.members?.includes(this.nickname))
+          .filter((el) => el);
+      });
   }
 
-  createGroupRoom(){
-    const groupMembers = this.selectedItems.map(el=>el.itemName);
+  createGroupRoom() {
+    const groupMembers = this.selectedItems.map((el) => el.itemName);
 
-    if(!(groupMembers?.length)) {
+    if (!groupMembers?.length) {
       this.error = 'Please Select Users to chat';
       // console.log(this.error);
       return;
@@ -105,20 +122,22 @@ export class AddgroupComponent implements OnInit {
     this.error = '';
     const group = {
       members: groupMembers,
-      name: this.groupName
-    }
+      name: this.groupName,
+    };
     // console.log(group);
     group.members.push(this.nickname);
 
     const newRoom = firebase.database().ref('group/').push();
     // console.log( "rooomname : " + this.roomname , "NICK:"+ this.nickname , this.UserOne , "USER TWO"+ this.UserTwo);
-    newRoom.set(group).then((response)=>{
-      this.selectedItems = [];
-      this.groupName = "";
-      this.showGroupModal(false);
-    }).catch(e=>{
-      this.showGroupModal(false);
-    });
+    newRoom
+      .set(group)
+      .then((response) => {
+        this.selectedItems = [];
+        this.groupName = '';
+        this.showGroupModal(false);
+      })
+      .catch((e) => {
+        this.showGroupModal(false);
+      });
   }
-
 }

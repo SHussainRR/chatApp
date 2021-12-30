@@ -7,8 +7,6 @@ import { DataService } from 'src/services/data.service';
 import { Subscription } from 'rxjs';
 import { isLoggedIn, MyErrorStateMatcher, snapshotToArray } from 'src/utils/functions';
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

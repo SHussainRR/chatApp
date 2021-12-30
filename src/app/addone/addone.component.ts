@@ -34,7 +34,6 @@ export class AddoneComponent implements OnInit {
 
   @Input() showOneModal: (bool) => {};
 
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -49,18 +48,18 @@ export class AddoneComponent implements OnInit {
     this.nickname = localStorage.getItem('nickname');
 
     firebase
-        .database()
-        .ref('users/')
-        .orderByChild('nickname')
-        .on('value', (resp2: any) => {
-          const roomusers = snapshotToArray(resp2);
-          const newVar: SelectUser[] = roomusers
-            .filter((el) => el.nickname && el.nickname !== this.nickname)
-            .map((ru) => {
-              return { id: ru.key, itemName: ru.nickname };
-            });
-          this.dropdownList = newVar;
-        });
+      .database()
+      .ref('users/')
+      .orderByChild('nickname')
+      .on('value', (resp2: any) => {
+        const roomusers = snapshotToArray(resp2);
+        const newVar: SelectUser[] = roomusers
+          .filter((el) => el.nickname && el.nickname !== this.nickname)
+          .map((ru) => {
+            return { id: ru.key, itemName: ru.nickname };
+          });
+        this.dropdownList = newVar;
+      });
 
     this.dropdownSettings = {
       singleSelection: true,
