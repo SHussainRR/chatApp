@@ -44,7 +44,7 @@
           <!-- Room Name Column -->
           <ng-container matColumnDef="roomname">
             <th mat-header-cell  *matHeaderCellDef class="roomName">Room Name</th>
-            <td mat-cell class="roomName" *matCellDef="let row">{{ row.roomname }}</td>
+            <td mat-cell class="roomName cursor" *matCellDef="let row">{{ row.roomname }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -68,7 +68,7 @@
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
           <th mat-header-cell *matHeaderCellDef class="roomName">Your One to One Rooms</th>
-          <td mat-cell class="roomName" *matCellDef="let row">{{ row.roomname }}</td>
+          <td mat-cell class="roomName cursor" *matCellDef="let row">{{ row.roomname }}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
         </ng-container>
@@ -93,7 +93,7 @@
         <!-- Room Name Column -->
         <ng-container matColumnDef="roomname">
           <th mat-header-cell *matHeaderCellDef class="roomName">Your Group List</th>
-          <td mat-cell class="roomName" *matCellDef="let row">{{ row.name || row.members.join(', ') }}</td>
+          <td mat-cell class="roomName cursor" *matCellDef="let row">{{ row.name || row.members.join(', ') }}</td>
           <!-- {{row.roomname}} -->
           <!-- ( Users: {{row.UserOne}} & {{row.UserTwo}} ) -->
         </ng-container>
