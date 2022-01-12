@@ -8,12 +8,13 @@ import { AddroomComponent } from './addroom/addroom.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { AddoneComponent } from './addone/addone.component';
 import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
+import { WrongPageComponent } from './wrong-page/wrong-page.component';
 
 const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login-routing.module').then(m => m.LoginRoutingModule) },
   { path: 'roomlist', component: RoomlistComponent },
   { path: 'addroom', component: AddroomComponent },
-  { path: 'addgroup' , component:AddgroupComponent},
+  { path: 'addgroup' , component: AddgroupComponent},
   { path: 'addone', component: AddoneComponent},
   { path: 'chatroomone/:roomname' , component: OneChatroomComponent},
   { path: 'chatroom/:roomname', component: ChatroomComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  }
+  },
+  { path: '**', component: WrongPageComponent }
 ];
 
 @NgModule({

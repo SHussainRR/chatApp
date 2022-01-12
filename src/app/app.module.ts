@@ -39,6 +39,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { ChatmessagesComponent } from './chatmessages/chatmessages.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { WrongPageComponent } from './wrong-page/wrong-page.component';
 
 registerLocaleData(en);
 
@@ -55,6 +56,7 @@ registerLocaleData(en);
     AddgroupComponent,
     GrouproomComponent,
     ChatmessagesComponent,
+    WrongPageComponent,
   ],
   imports: [
     NzNotificationModule,

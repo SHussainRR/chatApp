@@ -49,7 +49,7 @@ export class AddgroupComponent implements OnInit {
           const roomusers = snapshotToArray(resp2);
           const newVar: SelectUser[] = roomusers
             .filter((el) => el.nickname && el.nickname !== this.nickname)
-            .map((ru) => {
+            .map( (ru) => {
               return { id: ru.key, itemName: ru.nickname };
             });
           // console.log(newVar);

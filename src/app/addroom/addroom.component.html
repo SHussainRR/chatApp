@@ -1,6 +1,6 @@
 <form [formGroup]="roomForm" (ngSubmit)="onFormSubmit(roomForm.value)">
-  <h3 class="heading">User: {{ nickname }}</h3>
-  <h2>Please enter new Room</h2>
+  <h5 class="heading">User: {{ nickname }}</h5>
+  <h5>Please enter new Room</h5>
   <mat-form-field class="example-full-width">
     <mat-label>Room Name</mat-label>
     <input matInput placeholder="Enter room name" formControlName="roomname" [errorStateMatcher]="matcher" />
