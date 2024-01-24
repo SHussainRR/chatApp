@@ -1,0 +1,1 @@
+[![Quality Gate Status](http://dev-aliamjad:9000/api/project_badges/measure?project=chatApp-hussain&metric=alert_status&token=sqb_a250d27bbb0f8084d0e91f6cc31f41160f93613a)](http://dev-aliamjad:9000/dashboard?id=chatApp-hussain)
